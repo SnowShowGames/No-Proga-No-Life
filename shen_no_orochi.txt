@@ -1,0 +1,30 @@
+struct Azs
+{
+	char comp[4];
+	int mark;
+	int price;
+};
+int searchAzs(Azs b[], int n)
+{
+	int mn = b[0].price;
+	for (int i = 0; i < n; i++)
+	{
+		if (mn < b[i].price) mn = b[i].price;
+	}
+	return mn;
+}
+void VvodAzs(struct Azs b[], int& n)
+{
+	cin >> n;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> b[i].comp;
+		cin >> b[i].mark;
+		cin >> b[i].price;
+	}
+}
+void main()
+{
+	Azs b[3] = { {"AZ1",92,1000}, {"AZ2",95,2000}, {"AZ3",98,3000}};
+//	cout << searchAzs(b, 3);
+}
