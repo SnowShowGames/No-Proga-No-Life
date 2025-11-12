@@ -4,4 +4,8 @@
 
 <img width="678" height="351" alt="image" src="https://github.com/user-attachments/assets/541b3fd4-ec45-49a0-ae0a-bb1591cff7cf" />
 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+так почувствуйте боль, примите боль...
+
 ![try11](https://github.com/user-attachments/assets/8d701454-b7a5-47b2-9d65-dfd4317a58e3)
+
