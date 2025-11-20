@@ -1,0 +1,38 @@
+Описать структуру с именем PLANE, содержащую следующие поля: название
+пункта назначения рейса; номер рейса; время в пути. Вывести информацию о рейсах, время в 
+пути, у которых больше среднего на один час, а в номере рейса нет цифр один и три.
+исправь код:
+struct PLANE
+{
+	char name[10];
+	int number;
+	int time;
+};
+void Vvod(struct PLANE *b, int &n)
+{
+	cin >> n;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> b[i].name;
+		cin >> b[i].number;
+		cin >> b[i].time;
+	}
+}
+void print(struct PLANE* b, int& n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		cout << i << " " << b[i].name << " " << b[i].number << " " << b[i].time << endl;
+	}
+}
+void act1(PLANE* b, int& n)
+{
+
+}
+void main()
+{ 
+	PLANE* b = new PLANE[3];
+	b[0] = {"Moscow",123,3};
+	b[1] = {"Krasnodar",321,4};
+	b[2] = {"Samara",534,6};
+}
