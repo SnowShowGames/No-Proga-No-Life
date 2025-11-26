@@ -1,0 +1,112 @@
+#include <iostream>
+#include <cmath>
+#include <clocale>
+#include <algorithm>
+
+using namespace std;
+
+struct PLANE
+{
+    char name[10];
+    int number;
+    int time;
+};
+
+void Vvod(struct PLANE *b, int &n)
+{
+    n = 3;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> b[i].name;
+        cin >> b[i].number;
+        cin >> b[i].time;
+    }
+}
+
+void print(struct PLANE* b, int& n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        cout << i << " " << b[i].name << " " << b[i].number << " " << b[i].time << endl;
+    }
+    cout << "\n";
+}
+
+void how2sort(PLANE *b, int n)
+{
+	for (int i=0;i<n-1;i++)
+	{
+		for (int j=0;j<n-i-1;j++)
+		{
+			if (b[i].number < b[i + 1].number)
+			{
+				PLANE mass1=b[j];
+				b[j]=b[j+1];
+				b[j+1]=mass1;
+			}
+		}
+	}
+}
+
+bool checksort(PLANE *b, int n)
+{
+        for (int i = 0; i < n-1; i++)
+        {
+                if (b[i].number < b[i + 1].number)
+                        return 1;
+                else
+                        return 0;
+        }
+}
+
+void act1(PLANE* b, int& n)
+{
+    double avgtime = (b[0].time + b[1].time + b[2].time) / (double)n;
+    int tsh = 0;
+    bool rflag = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (b[i].time > avgtime + 1)
+        {
+            if (b[i].number % 10 != 1 && b[i].number % 10 != 3)
+            {
+                cout << " " << b[i].name << " " << b[i].number << " " << b[i].time << endl;
+                rflag = 1;
+            }
+            if (rflag == 0)
+            {
+                cout << "Рейсы не найдены" << endl;
+            }
+        }
+    }
+    cout << "\n";
+    cout << "Среднее время " << avgtime << " ч" << endl;
+}
+
+int main()
+{ 
+    setlocale(LC_ALL, "Rus");
+    PLANE* b = new PLANE[3];
+    b[0] = {"Moscow", 123, 7};
+    b[1] = {"Krasnodar", 321, 5};
+    b[2] = {"Samara", 534, 6};
+    int n = 3;
+    
+    cout << "Все рейсы (исходный порядок):" << endl;
+    print(b, n);
+    
+    if (!checksort(b, n))
+    {
+    	cout<<"Сортировка..."<<endl;
+    	how2sort(b ,n);
+    }
+    
+    cout << "Рейсы после сортировки по возрастанию номера:" << endl;
+    print(b, n);
+    
+    act1(b, n);
+
+    delete[] b;
+    return 0;
+}
