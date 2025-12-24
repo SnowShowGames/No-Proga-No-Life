@@ -1,0 +1,36 @@
+#include <iostream>
+#include <cmath>
+#include <clocale>
+
+using namespace std;
+
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+	int number;
+	int pos1 = 1; //отсчёт начинается с 1
+	double proizv = 1;
+	bool f = 0;
+
+	cout << "Введите последовательность чисел: " << endl;
+
+	while (cin >> number || number!=0)
+	{
+		//cin >> number;
+		if (pos1 % 3 == 0 && number == 2)
+		{
+			proizv *= number;
+			f = 1;
+			cout << "Найдено: " << number << "позиция №" << pos1 <<"\n" << endl;
+		}
+		pos1++;
+	}
+	if (f)
+	{
+		cout << "Произведение = " << proizv << endl;
+	}
+	else
+	{
+		cout << "Не найдено" << endl;
+	}
+}
