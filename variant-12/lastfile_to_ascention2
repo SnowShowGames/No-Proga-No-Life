@@ -1,0 +1,28 @@
+#include <iostream>
+#include <cmath>
+#include <clocale>
+
+using namespace std;
+
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+	int n;
+	double sm = 0.0;
+	cout << "Ввести n" << endl;
+	cin >> n;
+
+	for (int i = 1; i <= n; i++) {
+		double chislitel = 1.0;
+		for (int j = 1; j < i; j++) {
+			chislitel *= 2;
+		}
+		long znamenatel = 1;
+		int tete = (4 + 2 * i);
+		for (int j = 1; j <= tete; j++) {
+			znamenatel *= j;
+		}
+		sm += chislitel / znamenatel;
+	}
+	cout << "Сумма ряда = " << sm << endl;
+}
