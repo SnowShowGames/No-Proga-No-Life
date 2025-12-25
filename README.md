@@ -18,3 +18,5 @@
 
 
 https://drive.google.com/file/d/1WVca7JKJkqMXMDBVtiqydgt7TjKkMjU7/view?usp=drivesdk
+
+Зачёт по проге получен, можно и пообедать!
