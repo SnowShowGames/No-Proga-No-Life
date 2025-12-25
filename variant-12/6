@@ -1,0 +1,81 @@
+#include <iostream>
+#include <clocale>
+
+using namespace std;
+
+int main()
+{
+    setlocale(LC_ALL, "Rus");
+    int n;
+    cout << "Введите n:" << endl;
+    cin >> n;
+    if (n <= 0 || n > 100)
+    {
+        return 0;
+    }
+
+    int a[100];
+
+    cout << "Введите " << n << " элементов" << endl;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+
+    int mn = a[0];
+    int mnsm = 0;
+
+    // сумма цифр первого элемента
+    int fsm = abs(a[0]);
+    while (fsm > 0)
+    {
+        mnsm += fsm % 10;
+        fsm /= 10;
+    }
+
+    // проверка остальных элементов
+    for (int i = 1; i < n; i++) {  // начинаем с 1, так как 0 уже посчитали
+        int sm = 0;
+        fsm = abs(a[i]);
+
+        while (fsm > 0) {
+            sm += fsm % 10;
+            fsm /= 10;
+        }
+        if (sm < mnsm) {
+            mnsm = sm;
+            mn = a[i];
+        }
+    }
+    cout << "Минимальный элемент " << mn << endl;
+
+    // замена элементов с простыми индексами
+    for (int i = 0; i < n; i++) {
+        bool f = true;  // предполагаем, что индекс простой
+        
+        if (i < 2) {
+            f = false;  // 0 и 1 не простые
+        }
+        else {
+            // проверяем, есть ли делители кроме 1 и самого числа
+            for (int j = 2; j * j <= i; j++) {  // ИСПРАВЛЕНО!
+                if (i % j == 0) {
+                    f = false;  // нашли делитель - не простое
+                    break;
+                }
+            }
+        }
+        
+        if (f) {
+            a[i] = mn;
+        }
+    }
+
+    cout << "Итог: " << endl;
+    for (int i = 0; i < n; i++) {
+        cout << a[i] << " ";
+    }
+    cout << endl;
+    
+    return 0;
+}
