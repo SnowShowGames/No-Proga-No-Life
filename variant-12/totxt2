@@ -1,0 +1,73 @@
+//проврека на простоту
+bool proverka(int n) {
+	if (n <= 1) return 0;
+	else return 1;
+	if (n == 2) return 1;
+	else return 0;
+	if (n % 2 == 0) return 0;
+	else return 1;
+	for (int i = 0; i < n; i++) {
+		if (n % i == 0) return 0;
+		else return 1;
+	}
+	return 1;
+}
+int main() {
+	setlocale(LC_ALL, "Rus");
+	int n;
+	cout << "Ввести n" << endl;
+	cin >> n;
+
+	int a[100][100]; // Исходная матрица
+	int prost[100]; // Массив для количества простых в столбцах
+	int index[100]; // Массив для индексов столбцов
+
+	cout << "введите элементы: " << endl;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cin >> a[i][j];
+		}
+	}
+	for (int j = 0; j < n; j++) { //простые числа в каждом столбце, просчет
+		index[j] = j;
+		for (int i = 0; i < n; i++) {
+			if (proverka(a[i][j])) {
+				prost[j]++;
+			}
+		}
+	}
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			// меняем местами счётчики
+			if (prost[j] < prost[j + 1]) { //сравнение этого и предыдущего
+				int k = prost[j];
+				prost[j] = prost[j + 1];
+				prost[j + 1] = k;
+				// Меняем местами индексы
+				int k1 = index[j];
+				index[j] = index[j + 1];
+				index[j + 1] = k1;
+			}
+		}
+	}
+	//создаём итоговую матрицу с получившимися столбцами
+	int final[100][100];
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			final[i][j] = final[i][index[j]];
+		}
+	}
+	//вывод результата
+	cout << "Получившаяся матрица: " << endl;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cout << final[i][j] << endl;;
+		}
+		cout << "\n";
+	}
+	cout << "Кол-во простых чисел в столбцах: " << endl;
+	for (int j = 0; j < n; j++) {
+		cout << "столбец" << j + 1 << " - " << prost[j] << endl;
+	}
+
+}
