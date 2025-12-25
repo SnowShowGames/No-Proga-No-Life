@@ -14,12 +14,12 @@ int main()
 
 	cout << "Введите последовательность чисел: " << endl;
 
-	while (cin >> number || number!=0)
+	while (cin >> number && number!=0)
 	{
 		//cin >> number;
 		if (pos1 % 3 == 0 && number == 2)
 		{
-			proizv *= number;
+			proizv *= 2;
 			f = 1;
 			cout << "Найдено: " << number << "позиция №" << pos1 <<"\n" << endl;
 		}
