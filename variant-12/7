@@ -1,0 +1,83 @@
+#include <iostream>
+#include <clocale>
+
+using namespace std;
+
+// Проверка на простое число
+bool proverka(int n) {
+    if (n <= 1) return false;
+    if (n == 2) return true;
+    if (n % 2 == 0) return false;
+    
+    for (int i = 3; i * i <= n; i += 2) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+int main() {
+    setlocale(LC_ALL, "Rus");
+    int n;
+    cout << "Ввести n: ";
+    cin >> n;
+
+    if (n <= 0 || n > 100) {
+        cout << "Некорректный размер!" << endl;
+        return 0;
+    }
+
+    int a[100][100]; // Исходная матрица
+    int prost[100] = {0}; // Массив для количества простых в столбцах (ИСПРАВЛЕНО: инициализация нулями)
+
+    cout << "Введите элементы: " << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> a[i][j];
+        }
+    }
+
+    // Подсчет простых чисел в каждом столбце
+    for (int j = 0; j < n; j++) {
+        for (int i = 0; i < n; i++) {
+            if (proverka(a[i][j])) {
+                prost[j]++;
+            }
+        }
+    }
+
+    // Сортировка столбцов по убыванию количества простых чисел
+    for (int i = 0; i < n - 1; i++) { // ИСПРАВЛЕНО: до n-1
+        for (int j = 0; j < n - 1 - i; j++) { // ИСПРАВЛЕНО: до n-1-i
+            // Сравниваем количество простых чисел в соседних столбцах
+            if (prost[j] < prost[j + 1]) {
+                // Меняем местами счетчики простых чисел
+                int k = prost[j];
+                prost[j] = prost[j + 1];
+                prost[j + 1] = k;
+                
+                // Меняем местами столбцы в матрице
+                for (int row = 0; row < n; row++) {
+                    int temp = a[row][j];
+                    a[row][j] = a[row][j + 1];
+                    a[row][j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    // Вывод результата
+    cout << "\nПолучившаяся матрица: " << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << a[i][j] << " "; // ИСПРАВЛЕНО: убрал endl из цикла
+        }
+        cout << endl;
+    }
+
+    cout << "\nКоличество простых чисел в столбцах: " << endl;
+    for (int j = 0; j < n; j++) {
+        cout << "Столбец " << j + 1 << " - " << prost[j] << endl;
+    }
+
+    return 0;
+}
