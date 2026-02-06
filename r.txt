@@ -1,0 +1,58 @@
+#include <iostream>
+#include <cmath>
+#include <clocale>
+
+using namespace std;
+
+struct STEC {
+    int data;
+    STEC* next;
+};
+
+STEC* create() {
+    return NULL;
+}
+
+bool IsEmpty(STEC* top) {
+    return (top == NULL);
+}
+
+void Push(STEC*& top, int x) { //добавляет данные в стек
+    STEC* p = new STEC;
+    p->data = x;
+    p->next = top;
+    top = p;
+}
+
+void Print(STEC*& top) {
+    if (!IsEmpty(top)) {
+        cout << top->data << ", ";
+    }
+}
+
+int StackSize(STEC* top)
+{
+    int size = 0;
+    while (top != NULL)
+    {
+        size++;
+        top = top->next;
+    }
+    return size;
+}
+
+int main() {
+    setlocale(LC_ALL, "Rus");
+    srand(time(0));
+    int n = 3;
+    STEC* s = create();
+    cout << "Стекъ: " << endl;
+    for (int i = 0; i < n; i++) {
+        int x = rand() % 10;
+        Push(s, x);
+        Print(s);
+    }
+    return(0);
+}
+
+//найти максимальны элемент стека, написать функцию
