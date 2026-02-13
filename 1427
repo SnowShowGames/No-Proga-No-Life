@@ -1,0 +1,173 @@
+#include <iostream>
+#include <clocale>
+#include <cmath>
+
+using namespace std;
+
+//СПИСКИ
+
+struct List {
+    int data;
+    List* next;
+};
+
+//создание нового узла.элемента списка
+List* createList(int value)
+{
+    List* newL = new List; //новый узел
+    newL->data = value; //занесли данные в список
+    newL->next = NULL; //указывает на 0, т.к. след. элемента нет
+    return newL; //возвращает указатель на новый лист
+}
+
+//функция распечатки
+void PrintList(List* head) //вывод списка в консоль / на экран
+{
+    while (head != nullptr) //NULL
+    {
+        cout << head->data << " ";
+        head = head->next;
+    }
+    cout << endl;
+}
+
+//добавление эл.списка в конец
+void appEnd(List*& head, int value)
+{
+    List* newL = createList(value); //новый эл. списка
+    if (head == nullptr)
+    {
+        head = newL;
+    }
+    else {
+        List* tmp = head;
+        while (tmp->next != nullptr)
+        {
+            tmp = tmp->next;
+        }
+        tmp->next = newL; // ИСПРАВЛЕНО: было внутри цикла
+    }
+}
+
+//сумма элементов списка
+int SumList(List* head)
+{
+    int sm = 0;
+    List* tmp = head;
+    while (tmp != nullptr)
+    {
+        sm += tmp->data; // ИСПРАВЛЕНО: добавляем данные
+        tmp = tmp->next;
+    }
+    return sm;
+}
+
+//функция удаления элементов из списка
+void removeElem(List*& head, int value) // ИСПРАВЛЕНО: передаем head по ссылке
+{
+    if (head == nullptr)
+    {
+        cout << "Список пуст" << endl;
+        return;
+    }
+    
+    // Удаление первого элемента
+    if (head->data == value)
+    {
+        List* tmp = head; //копия списка в tmp
+        head = head->next;
+        delete tmp; 
+        return;
+    }
+    
+    //поиск элемента для удаления
+    List* tmp = head;
+    while (tmp->next != nullptr && tmp->next->data != value)
+    {
+        tmp = tmp->next;
+    }
+    
+    //если элемент не найден
+    if (tmp->next == nullptr) // ИСПРАВЛЕНО: сравнение, а не присваивание
+    {
+        cout << "Элемент не найден!" << endl; 
+        return;
+    }
+    
+    List* delElem = tmp->next;
+    tmp->next = tmp->next->next;
+    delete delElem;
+}
+
+// ФУНКЦИЯ ПОИСКА МАКСИМАЛЬНОГО ЭЛЕМЕНТА СРЕДИ НЕЧЕТНЫХ
+int findMaxOdd(List* head)
+{
+    if (head == nullptr)
+    {
+        cout << "Список пуст!" << endl;
+        return -1; // или можно выбросить исключение
+    }
+    
+    int maxOdd = -2147483648; // минимальное возможное значение int
+    bool found = false;
+    List* tmp = head;
+    
+    while (tmp != nullptr)
+    {
+        // проверяем, является ли число нечетным
+        if (tmp->data % 2 != 0)
+        {
+            if (!found || tmp->data > maxOdd)
+            {
+                maxOdd = tmp->data;
+                found = true;
+            }
+        }
+        tmp = tmp->next;
+    }
+    
+    if (!found)
+    {
+        cout << "В списке нет нечетных элементов!" << endl;
+        return -1;
+    }
+    
+    return maxOdd;
+}
+
+int main()
+{
+    int x;
+    setlocale(LC_ALL, "Rus");
+    List* head = nullptr;
+    int n; 
+    cout << "Введите размер списка: " << endl;
+    cin >> n; 
+    cout << "Введите элементы списка:" << endl;
+    
+    for (int i = 0; i < n; i++)
+    {
+        cin >> x;
+        appEnd(head, x); //добавление в конец списка
+    }
+    
+    cout << "Полученный список:" << endl;
+    PrintList(head);
+    
+    // Вызов функции поиска максимального нечетного элемента
+    int maxOdd = findMaxOdd(head);
+    if (maxOdd != -1)
+    {
+        cout << "Максимальный элемент среди нечетных: " << maxOdd << endl;
+    }
+    
+    // Пример использования функции удаления
+    // removeElem(head, 3);
+    // cout << "Список после удаления элемента 3:" << endl;
+    // PrintList(head);
+    
+    // Пример использования функции суммы
+    // cout << "Сумма элементов списка: " << SumList(head) << endl;
+    
+    return 0;
+}
