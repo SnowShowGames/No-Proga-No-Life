@@ -1,0 +1,250 @@
+#include <iostream>
+#include <clocale>
+#include <cmath>
+
+using namespace std;
+
+//СПИСКИ
+
+struct List {
+	int data;
+	List* next;
+};
+
+//создание нового узла.элемента списка
+
+List* createList(int value)
+{
+	List* newL = new List; //новый узел
+	newL->data = value; //занесли данные в список
+	newL->next = NULL; //указывает на 0, тюк след. элемента нет
+	return newL; //возвращает указатель на новый лист
+}
+
+//функция распечатки
+void PrintList(List* head) //вывод списка в консоль / на экран
+{
+	List* tmp = head;
+	while (tmp != nullptr) //NULL
+	{
+		cout << tmp->data << " ";
+		tmp = tmp->next;
+	}
+}
+
+//добавление эл.списка в конец
+
+void appEnd(List*& head, int value)
+{
+	List* newL = createList(value); //новый эл. списка
+	if (head == nullptr)
+	{
+		head = newL;
+	}
+	else {
+		List* tmp = head;
+		while (tmp->next != nullptr)
+		{
+			tmp = tmp->next;
+
+		}
+		tmp->next = newL;
+	}
+}
+
+//функция поиска максимального элемента среди нечётных чисел
+void MaxElemOdd(List* head)
+{
+	if (head == nullptr)
+	{
+		cout << "Список пуст" << endl;
+		return;
+	}
+
+	int maxOdd = -1; // флажок, нечётные числа не найдены
+	List* tmp = head;
+
+	while (tmp != nullptr)
+	{
+		if (tmp->data % 2 != 0)
+		{
+			if (maxOdd == -1 || tmp->data > maxOdd)
+			{
+				maxOdd = tmp->data;
+			}
+		}
+		tmp = tmp->next;
+	}
+
+	if (maxOdd == -1)
+	{
+		cout << "Нечётные элементы не найдены!" << endl;
+		return;
+	}
+	cout << "Максимальный нечётный элемент: " << maxOdd << endl;
+}
+
+//сумма элементов списка, не дописано
+
+//int SumList(List* head)
+//{
+//	int sm=0;
+//	List* tmp = head;
+//	while (tmp != nullptr)
+//	{
+//		sm+=
+//	}
+//}
+
+//функция удаления элементов из списка
+void removeElem(List* head, int value)
+{
+	if (head == nullptr)
+	{
+		cout << "Список пуст" << endl;
+		return;
+	}
+	if (head->data == value)
+	{
+		List* tmp = head; //копия списка в tmp
+		head = head->next;
+		delete tmp; return;
+	}
+	//поиск элемента для удаления
+	List* tmp = head;
+	while (tmp->next != nullptr)
+	{
+		tmp = tmp->next;
+	}
+	//если элемент не найден, тогда
+	if (tmp->next = nullptr)
+	{
+		cout << "Элемент не найден!" << endl; return;
+	}
+	List* delElem = tmp->next;
+	tmp->next = tmp->next->next;
+	delete delElem;
+}
+
+//очистка списка/ов
+void clearList(List*& head)
+{
+	while (head != nullptr)
+	{
+		List* tmp = head;
+		head = head->next;
+		delete tmp;
+	}
+}
+
+//ф-я которая обнуляет весь список
+void ZeroList(List*& head) //*&
+{
+	List* tmp = head;
+	cout << "список обнулён " << endl;
+	//обнуление элементов списков
+	while (tmp != nullptr)
+	{
+		/*List* tmp = head;
+		tmp->data = 0;*/
+		tmp->data = 0;
+		tmp = tmp->next;
+	}
+}
+
+//int MaxElemNechetn(List* head) дописать
+//{
+//	int mx = 0;
+//}
+
+/*
+*removeElem(head, 3);
+* printList(head)
+*/
+
+//обнуление, но с помощью рекурсии
+void ZeroListRecursed(List* head)
+{
+	/*List* tmp = head;*/
+	List* h = head;
+	//if (tmp == NULL)
+	//{
+	//	return;
+	//}
+	//tmp->data=0;
+	//ZeroListRecursed(head->next); // <-тоже норм варик, но немного сложнее для понимания
+
+	if (h != nullptr)
+	{
+		h->data = 0;
+		ZeroListRecursed(h->next);
+	}
+
+}
+
+//сортировка в порядке убывания
+void SortList(List* head)
+{
+	if (head == nullptr || head->next == nullptr)
+	{
+		cout << "Список отсортирован " << endl;
+		return;
+	}
+
+	List* curr = head;
+	bool swapped = true;
+
+	while (swapped)
+	{
+		swapped = false;
+		curr = head;
+
+		while (curr->next != nullptr)
+		{
+			if (curr->data < curr->next->data)
+			{
+				int temp = curr->data;
+				curr->data = curr->next->data;
+				curr->next->data = temp;
+				swapped = true;
+			}
+			curr = curr->next;
+		}
+	}
+	cout << "Список отсортирован " << endl;
+}
+
+int main()
+{
+	int x;
+	setlocale(LC_ALL, "Rus");
+	List* head = nullptr;
+	int n; cout << "Введите размер списка " << endl;;
+	cin >> n; cout << "Введие элемент списка" << endl;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> x;
+		//appEnd(head, x); //добавление в конец списка
+		createList(x);
+		appEnd(head, x);
+	}
+	cout << "полученный список" << endl;
+	PrintList(head);
+
+	//clearList(head);
+	cout << endl;
+	//cout << "Список после очистки " << endl;
+	//PrintList(head);
+
+	//ZeroList(head);
+	//PrintList(head);
+	//ZeroListRecursed(head);
+	//PrintList(head);
+
+	SortList(head);
+	MaxElemOdd(head);
+
+	return 0;
+}
+
+//max элемент списка среди нечётн
