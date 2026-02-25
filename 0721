@@ -1,0 +1,67 @@
+#include <iostream>
+#include <clocale>
+#include <cmath>
+
+using namespace std;
+
+struct List2
+{
+	int info; //запись списка
+List2 *next; //указатель на след. элем.
+List2 *pred; //указатель на пред. элем.
+};
+
+void Print1(List2 *begin) //распечаика списка при движении вперёд, на след элемент
+{
+List2 *tmp=begin;
+while(tmp==NULL)
+{
+cout<<"\n Elem: "<<tmp->info<<" ";
+tmp=tmp->next; // двигаем указатель вперёд
+}
+}
+
+//ф-я создания списка
+List2 *make_List()
+{
+List2 *begin=new(List2);//создаём в памяти список
+List2 *r, *p; int x; cin>>x;
+begin->info=x; //добавим x в список
+p=begin;
+while (x!=0)// вводим эл.списка, пока не 0
+{
+cin>>x;
+if (x!=0)
+{
+r=new(List2); // добавим след элемент списка
+r->info=x;
+r->next=NULL; // следущего эл. - нет
+p->next = r;
+r->pred=p;
+p=r;
+}
+}
+return begin;
+}
+
+//это надо самим сделать
+//распечатка списка при движении назад, на пред элем
+void Print2(List2* end)
+{
+	List2* tmp = end;
+	while (tmp->next == NULL)
+	{
+		cout << "\n Elem: " << tmp->info << " ";
+	}
+}
+
+int main()
+{
+	int x;
+	setlocale(LC_ALL, "Rus");
+	List2* head = make_List;
+	//ввести и распечатать, дописать
+
+
+	return 0;
+}
