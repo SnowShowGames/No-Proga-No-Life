@@ -1,0 +1,374 @@
+//#include <iostream>
+//#include <clocale>
+//#include <cmath>
+//
+//using namespace std;
+//
+////СПИСКИ
+//
+//struct List {
+//	int data;
+//	List* next;
+//};
+//
+////создание нового узла.элемента списка
+//
+//List* createList(int value)
+//{
+//	List* newL = new List; //новый узел
+//	newL->data = value; //занесли данные в список
+//	newL->next = NULL; //указывает на 0, тюк след. элемента нет
+//	return newL; //возвращает указатель на новый лист
+//}
+//
+////функция распечатки
+//void PrintList(List* head) //вывод списка в консоль / на экран
+//{
+//	List* tmp = head;
+//	while (tmp != nullptr) //NULL
+//	{
+//		cout << tmp->data << " ";
+//		tmp = tmp->next;
+//	}
+//}
+//
+////добавление эл.списка в конец
+//
+//void appEnd(List*& head, int value)
+//{
+//	List* newL = createList(value); //новый эл. списка
+//	if (head == nullptr)
+//	{
+//		head = newL;
+//	}
+//	else {
+//		List* tmp = head;
+//		while (tmp->next != nullptr)
+//		{
+//			tmp = tmp->next;
+//
+//		}
+//		tmp->next = newL;
+//	}
+//}
+//
+////функция поиска максимального элемента среди нечётных чисел
+//void MaxElemOdd(List* head)
+//{
+//	if (head == nullptr)
+//	{
+//		cout << "Список пуст" << endl;
+//		return;
+//	}
+//
+//	int maxOdd = -1; // флажок, нечётные числа не найдены
+//	List* tmp = head;
+//
+//	while (tmp != nullptr)
+//	{
+//		if (tmp->data % 2 != 0)
+//		{
+//			if (maxOdd == -1 || tmp->data > maxOdd)
+//			{
+//				maxOdd = tmp->data;
+//			}
+//		}
+//		tmp = tmp->next;
+//	}
+//
+//	if (maxOdd == -1)
+//	{
+//		cout << "Нечётные элементы не найдены!" << endl;
+//		return;
+//	}
+//	cout << "Максимальный нечётный элемент: " << maxOdd << endl;
+//}
+//
+////сумма элементов списка, не дописано
+//
+////int SumList(List* head)
+////{
+////	int sm=0;
+////	List* tmp = head;
+////	while (tmp != nullptr)
+////	{
+////		sm+=
+////	}
+////}
+//
+////функция удаления элементов из списка
+//void removeElem(List* head, int value)
+//{
+//	if (head == nullptr)
+//	{
+//		cout << "Список пуст" << endl;
+//		return;
+//	}
+//	if (head->data == value)
+//	{
+//		List* tmp = head; //копия списка в tmp
+//		head = head->next;
+//		delete tmp; return;
+//	}
+//	//поиск элемента для удаления
+//	List* tmp = head;
+//	while (tmp->next != nullptr)
+//	{
+//		tmp = tmp->next;
+//	}
+//	//если элемент не найден, тогда
+//	if (tmp->next = nullptr)
+//	{
+//		cout << "Элемент не найден!" << endl; return;
+//	}
+//	List* delElem = tmp->next;
+//	tmp->next = tmp->next->next;
+//	delete delElem;
+//}
+//
+////очистка списка/ов
+//void clearList(List*& head)
+//{
+//	while (head != nullptr)
+//	{
+//		List* tmp = head;
+//		head = head->next;
+//		delete tmp;
+//	}
+//}
+//
+////ф-я которая обнуляет весь список
+//void ZeroList(List*& head) //*&
+//{
+//	List* tmp = head;
+//	cout << "список обнулён " << endl;
+//	//обнуление элементов списков
+//	while (tmp != nullptr)
+//	{
+//		/*List* tmp = head;
+//		tmp->data = 0;*/
+//		tmp->data = 0;
+//		tmp = tmp->next;
+//	}
+//}
+//
+////обнуление, но с помощью рекурсии
+//void ZeroListRecursed(List* head)
+//{
+//	/*List* tmp = head;*/
+//	List* h = head;
+//	//if (tmp == NULL)
+//	//{
+//	//	return;
+//	//}
+//	//tmp->data=0;
+//	//ZeroListRecursed(head->next); // <-тоже норм варик, но немного сложнее для понимания
+//
+//	if (h != nullptr)
+//	{
+//		h->data = 0;
+//		ZeroListRecursed(h->next);
+//	}
+//
+//}
+//
+////сортировка в порядке убывания
+//void SortList(List* head)
+//{
+//	if (head == nullptr || head->next == nullptr)
+//	{
+//		cout << "Список отсортирован " << endl;
+//		return;
+//	}
+//
+//	List* curr = head;
+//	bool swapped = true;
+//
+//	while (swapped)
+//	{
+//		swapped = false;
+//		curr = head;
+//
+//		while (curr->next != nullptr)
+//		{
+//			if (curr->data < curr->next->data)
+//			{
+//				int temp = curr->data;
+//				curr->data = curr->next->data;
+//				curr->next->data = temp;
+//				swapped = true;
+//			}
+//			curr = curr->next;
+//		}
+//	}
+//	cout << "Список отсортирован " << endl;
+//}
+//
+//int main()
+//{
+//	int x;
+//	setlocale(LC_ALL, "Rus");
+//	List* head = nullptr;
+//	int n; cout << "Введите размер списка " << endl;;
+//	cin >> n; cout << "Введие элемент списка" << endl;
+//	for (int i = 0; i < n; i++)
+//	{
+//		cin >> x;
+//		//appEnd(head, x); //добавление в конец списка
+//		createList(x);
+//		appEnd(head, x);
+//	}
+//	cout << "полученный список" << endl;
+//	PrintList(head);
+//
+//	//clearList(head);
+//	cout << endl;
+//	//cout << "Список после очистки " << endl;
+//	//PrintList(head);
+//
+//	//ZeroList(head);
+//	//PrintList(head);
+//	//ZeroListRecursed(head);
+//	//PrintList(head);
+//
+//	//SortList(head);
+//	MaxElemOdd(head);
+//
+//	return 0;
+//}
+
+// ------------------------------------------------------------------------------------------------------------------25.02.2026---------------------------------------------------------------------------------------------------
+
+//двунаправленные списки стр.17
+
+#include <iostream>
+#include <clocale>
+#include <cmath>
+
+using namespace std;
+
+struct List2
+{
+	int info; //запись списка
+	List2* next; //указатель на след. элем.
+	List2* pred; //указатель на пред. элем.
+};
+
+void Print1(List2* begin) //распечаика списка при движении вперёд, на след элемент
+{
+	List2* tmp = begin;
+	while (tmp == NULL)
+	{
+		cout << "\n Elem: " << tmp->info << " ";
+		tmp = tmp->next; // двигаем указатель вперёд
+	}
+}
+
+//ф-я создания списка
+List2* make_List()
+{
+	List2* begin = new(List2);//создаём в памяти список
+	List2* r, * p; int x; cin >> x;
+	begin->info = x; //добавим x в список
+	p = begin;
+	while (x != 0)// вводим эл.списка, пока не 0
+	{
+		cin >> x;
+		if (x != 0)
+		{
+			r = new(List2); // добавим след элемент списка
+			r->info = x;
+			r->next = NULL; // следущего эл. - нет
+			p->next = r;
+			r->pred = p;
+			p = r;
+		}
+	}
+	return begin;
+}
+
+//это надо самим сделать
+//распечатка списка при движении назад, на пред элем
+void Print2(List2* end)
+{
+	List2* tmp = end;
+	while (tmp->next != NULL)
+	{
+		tmp = tmp->next;
+	}
+	while (tmp != end->pred)
+	{
+		cout << "\n Elem: " << tmp->info << " ";
+		tmp = tmp->pred;
+	}
+}
+//ф-я подсчёта кол-ва элементов ... дописать
+//int List2Kol(List2* beg)
+//{
+//	List2* tmp = beg;
+//
+//	return;
+//}
+
+//удаление эл. со значением "k"
+List2* delElem(List2* beg, int k)
+{
+	List2* p = beg->next;
+	List2* r;
+	while (p != NULL)
+	{
+		if (p->info == k) //что-то, +---+
+		{
+			if (p->next != NULL)
+			{
+				r = p;
+				p->next->pred = p->pred;
+				p->pred->next = p->next;
+			}
+			delete[]p; // мб там должно быть r
+		}
+		else
+		{
+			p->pred->next = NULL;
+			delete[]p;
+			break;
+		}
+		p = p->next;
+	}
+	if (beg->info == k) // для случая когда "k" в начале списка
+	{
+		p = beg;
+		beg = beg->next;
+		beg->pred = NULL;
+		delete[]p;
+	}
+	return beg;
+}
+
+//проверка на сииметричность
+bool simmLIst(List2 *beg)
+{
+
+}
+
+int main()
+{
+	int x;
+	setlocale(LC_ALL, "Rus");
+	List2* head = make_List();
+	//ввести и распечатать, [дописать если нужно]
+	if (head != NULL)
+	{
+		int k;
+		cout << "Ввести k ";
+		cin >> k;
+
+		delElem(head, k);
+
+		Print1(head);
+		Print2(head);
+		delElem(head, k);
+	}
+	return 0;
+}
+//с клавиатуры ввести "k" и потом вывести
