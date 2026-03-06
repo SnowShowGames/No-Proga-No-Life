@@ -1,0 +1,388 @@
+#include <iostream>
+#include <clocale>
+#include <cmath>
+
+using namespace std;
+
+struct List2
+{
+	int info; //запись списка
+	List2* next; //указатель на след. элем.
+	List2* pred; //указатель на пред. элем.
+};
+
+//void Print1(List2* begin) //распечаика списка при движении вперёд, на след элемент
+//{
+//	List2* tmp = begin;
+//	while (tmp == NULL)
+//	{
+//		cout << "\n Elem: " << tmp->info << " ";
+//		tmp = tmp->next; // двигаем указатель вперёд
+//	}
+//}
+
+//ф-я создания списка
+//List2* make_List()
+//{
+//	List2* begin = new(List2);//создаём в памяти список
+//	List2* r, * p; int x; cin >> x;
+//	begin->info = x; //добавим x в список
+//	p = begin;
+//	while (x != 0)// вводим эл.списка, пока не 0
+//	{
+//		cin >> x;
+//		if (x != 0)
+//		{
+//			r = new(List2); // добавим след элемент списка
+//			r->info = x;
+//			r->next = NULL; // следущего эл. - нет
+//			p->next = r;
+//			r->pred = p;
+//			p = r;
+//		}
+//	}
+//	return begin;
+//}
+
+//двухсвязный список
+List2* make_rist()
+{
+	List2* ring = new List2;
+	int x; cout << "Vvedite elem: " << endl;
+	cin >> x; ring->info = x;//эл-т в список
+	List2* tmp = ring;//указат. на голову
+	cout << "Vvedite elem: " << " ";
+	while (x) //вводим пока не 0
+	{
+		List2* l = new List2;//указатель на след. узел
+		l->info = x;//новый след. эл. списка
+		l->pred = tmp;//пред. на предыдущ.
+		tmp->next = l; tmp = l;
+			cin >> x;
+	}
+	//свернёт список в кольцо 
+	tmp->next = ring;
+	ring->pred = tmp;
+	return ring;
+}
+
+//вывод эл-т кольц. списка 1
+void PrintRing(List2* ring)
+{
+	List2* tmp = ring;
+	do
+	{
+		tmp = tmp->next;
+		cout << tmp->info << " ";
+	} while (tmp != ring->pred);
+}
+
+//вывод эл-т кольц. списка 2
+void printR(List2* ring)
+{
+	if (ring == nullptr) return;
+	List2* tmp = ring;
+	cout << "Elem: " << " ";
+	while (tmp->next != ring)
+	{
+		cout << tmp->info << " ";
+		tmp = tmp->next;
+	} cout << tmp->info << " ";
+}
+
+//это надо самим сделать
+//распечатка списка при движении назад, на пред элем
+//void Print2(List2* end)
+//{
+//	List2* tmp = end;
+//	while (tmp->next != NULL)
+//	{
+//		tmp = tmp->next;
+//	}
+//	while (tmp != end->pred)
+//	{
+//		cout << "\n Elem: " << tmp->info << " ";
+//		tmp = tmp->pred;
+//	}
+//}
+
+//ф-я подсчёта кол-ва элементов ... дописать
+//int List2Kol(List2* beg)
+//{
+//	List2* tmp = beg;
+//
+//	return;
+//}
+
+//удаление эл. со значением "k"
+//List2* delElem(List2* beg, int k)
+//{
+//	List2* p = beg->next;
+//	List2* r;
+//	while (p != NULL)
+//	{
+//		if (p->info == k) //что-то, +---+
+//		{
+//			if (p->next != NULL)
+//			{
+//				r = p;
+//				p->next->pred = p->pred;
+//				p->pred->next = p->next;
+//			}
+//			delete[]p; // мб там должно быть r
+//		}
+//		else
+//		{
+//			p->pred->next = NULL;
+//			delete[]p;
+//			break;
+//		}
+//		p = p->next;
+//	}
+//	if (beg->info == k) // для случая когда "k" в начале списка
+//	{
+//		p = beg;
+//		beg = beg->next;
+//		beg->pred = NULL;
+//		delete[]p;
+//	}
+//	return beg;
+//}
+
+//проверка на сииметричность
+bool simmLIst(List2* beg)
+{
+	//if (beg != NULL) return false;
+	List2* end = beg;
+	while (end->next != NULL)
+	{
+		end = end->next;
+	}
+	while (beg != NULL)
+	{
+		if (beg->info != end->info)
+		{
+			return false;
+		}
+		beg = beg->next;
+		end = end->pred;
+	}
+	return true;
+}
+
+//проверка на упорядоченность через pred , [дописать]
+//bool BegToEnd(List2* beg)
+//{
+//	List2* end = beg;
+//	while (beg->next != NULL)
+//	{
+//		beg = beg->next;
+//	}
+//	while (end->pred != NULL)
+//	{
+//		if (end->info < end->pred->info)
+//		{
+//			return false;
+//		}
+//		end = end->pred;
+//	}
+//	return true;
+//}
+
+//проверка на упорядоченность через рекурсивный алгоритм
+bool BegToEndCursed(List2* beg)
+{
+	if (beg == NULL)
+	{
+		return true;
+	}
+	if (beg->pred == NULL)
+	{
+		return true;
+	}
+	if (beg->info > beg->pred->info)
+	{
+		return false;
+	}
+	return beg->pred;
+}
+
+//проверка упорядоченности с конца(рекурсивно)
+bool ListDown(List2* beg)
+{
+	if (beg == NULL)
+	{
+		return 1;
+	}
+	List2* tmp = beg;
+	while (tmp->next != NULL)
+	{
+		tmp = tmp->next;
+	}
+	return ListDown(tmp); //tmp->pred;
+}
+
+//создание кольцевого списка, копия кода
+//List2* make_ring()
+//{
+//	List2* ring = new List2;
+//	int x; cout << "Vvedite element: " << " " << endl;
+//	cin >> x; ring->info = x;
+//	List2* tmp = ring;
+//	cout << "Vvedite element: " << " " << endl; cin >> x;
+//	while (x)
+//	{
+//		List2* l = new List2;
+//		l->info = x;
+//		l->pred = tmp;
+//		tmp->next = l; tmp = l;
+//		cin >> x;
+//	}
+//	tmp->next = ring;
+//	ring->pred = tmp;
+//
+//	return ring;
+//}
+
+//сумма эл. двух списков, из первого берём четные эл. из вторного нечётные
+int DoubleSummRing(List2* chetn, List2* nechetn)
+{
+	List2* tmp1 = chetn;
+	int sm = 0;
+	do
+	{
+		if (tmp1->info % 2 == 0)
+		{
+			sm += tmp1->info;
+		}
+		tmp1 = tmp1->next;
+	} while (tmp1 != chetn);
+	List2* tmp2 = nechetn;
+	do
+	{
+		if (tmp2->info % 2 != 0)
+		{
+			sm += tmp2->info;
+		}
+		tmp2 = tmp2->next;
+	} while (tmp2 != nechetn);
+	return sm;
+}
+
+//вывод кольцевго списка, старый вариант
+//void PrintRing(List2* ring)
+//{
+//	List2* tmp = ring;
+//	do
+//	{
+//		tmp = tmp->next;
+//		cout << tmp->info << " ";
+//	} while (tmp != ring);
+//}
+
+//кол-во элементов в кольцевом списке, вроде правильно
+
+//int KolRing(List2 *beg) не актуально
+//{
+////находим число эл. кольцевого списка
+//	List2* tmp = beg->next;
+//	int kol = 1;
+//	if (beg == NULL)
+//	{
+//		return 0;
+//	}
+//	while (tmp!=beg)
+//	{
+//		tmp->next = tmp;
+//		kol++;
+//		if (tmp == NULL)
+//			return 0;
+//	}
+//return kol;
+//}
+
+//новая версия
+//int KolRing(List2* beg)
+//{
+//
+//}
+
+//нахождение суммы
+int SummRing(List2* beg)
+{
+	if (beg == NULL)
+		return 0;
+	int sm = 0;
+	List2* tmp = beg;
+	do
+	{
+		sm += tmp->info;
+		tmp = tmp->next;
+	} while (tmp != beg);
+	return sm;
+}
+
+//нахождение суммы (рекурсивно) дописать
+//int SummRingCursed(List2* beg)
+//{
+//
+//}
+
+int main()
+{
+	int x;
+	setlocale(LC_ALL, "Rus");
+	//List2* head = make_List();
+	List2* ring = make_rist();
+	List2* ring1 = make_rist();
+	//List2* headless = make_ring();
+	//ввести и распечатать, [дописать если нужно]
+	//if (head != NULL)
+	//{
+		//int k;
+		//cout << "Ввести k ";
+		//cin >> k;
+
+		//delElem(head, k);
+
+		//Print1(head);
+		//Print2(head);
+		//delElem(head, k);
+
+		cout << endl;
+
+		//if (simmLIst(head))
+		//{
+		//	cout << "Список симметричен" << endl;
+		//}
+		//else
+		//{
+		//	cout << "Список не симметричен" << endl;
+		//}
+
+		//if (BegToEnd(head))
+		//{
+		//	cout << "Список упорядочен" << endl;
+		//}
+		//else
+		//{
+		//	cout << "Список не упорядочен" << endl;
+		//}
+
+		//SummRing(headless);
+		//PrintRing(headless);
+		//printR(ring);
+
+		cout << DoubleSummRing(ring, ring1) << endl;
+
+		/*if (BegToEndCursed(head))
+		{
+			cout << "Список упорядочен" << endl;
+		}
+		else
+		{
+			cout << "Список не упорядочен" << endl;
+		}*/
+	//}
+	return 0;
+}
