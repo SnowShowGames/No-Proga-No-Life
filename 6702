@@ -1,0 +1,83 @@
+#include <iostream>
+#include <clocale>
+#include <cmath>
+
+using namespace std;
+
+struct Tree {
+	int info; //информационное поле
+	Tree* left;
+	Tree* right;
+};
+
+void Add(Tree* root, int data)
+{
+	if (data < root->info)
+		if (root->left == NULL) {
+			Tree* q;
+			q = new(Tree);
+			q->info = data;
+			q->left = NULL;
+			q->right = NULL;
+			root->left = q;
+		}
+		else Add(root->left, data);
+	else
+		if (root->right == NULL) {
+			Tree* q;
+			q = new(Tree);
+			q->info = data;
+			q->left = NULL;
+			q->right = NULL;
+			root->right = q;
+		}
+		else Add(root->right, data);
+}
+
+void Destroyed(Tree* root) {
+	if (root == NULL)
+		return;
+	Destroyed(root->left);
+	Destroyed(root->right);
+	delete root;
+}
+
+int Sum3(Tree* root) {
+	if (root == NULL)
+		return 0;
+	if (root->left == NULL && root -> right == NULL)
+		return root->info;
+	else
+		return Sum3(root->left) + Sum3(root->right);
+}
+
+int kolvo(Tree* beg)
+{
+	if (beg != NULL)
+	{
+		if (beg->left == NULL && beg->right == NULL && beg->info % 2 == 0)
+			return 1 + kolvo(beg->left) + kolvo(beg->right);
+		else return kolvo(beg->left) + kolvo(beg->right);
+	}
+	else return 0;
+}
+
+int main() {
+	setlocale(LC_ALL, "Russian");
+		Tree * root = NULL;
+	int x;
+	cout << "Введите элементы (признак завершения 0)\n";
+		cin >> x;
+	if (x != 0) {
+		root = new Tree;
+		root->info = x;
+		root->left = NULL;
+		root->right = NULL;
+	}
+	for (cin >> x; x != 0; cin >> x)
+		Add(root, x);
+	cout << "Сумма листьев =" << Sum3(root);
+	//system("pause");
+	//Destroy(root);
+	return 0;
+}
