@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+struct Tree {
+	int info;
+	Tree* left;
+	Tree* right;
+};
+
+void Add(Tree* root, int data)
+{
+	if (data < root->info)
+		if (root->left == NULL) {
+			Tree* q;
+			85
+				q = new(Tree);
+			q->info = data;
+			q->left = NULL;
+			q->right = NULL;
+			root->left = q;
+		}
+		else Add(root->left, data);
+	else
+		if (root->right == NULL) {
+			Tree* q;
+			q = new(Tree);
+			q->info = data;
+			q->left = NULL;
+			q->right = NULL;
+			root->right = q;
+		}
+		else Add(root->right, data);
+}
+
+Tree* ListToTree(list2* l)
+{
+	Tree* t = new Tree;
+	t->left = 0; t->right = 0;
+	t->info = l->info;
+	return t;
+}
+
+int main
+
+//удалить с дерева все чётные элементы
