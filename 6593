@@ -31,14 +31,19 @@ void Add(Tree* root, int data)
 		else Add(root->right, data);
 }
 
-Tree* ListToTree(list2* l)
+//Tree* ListToTree(list2* l)
+//{
+//	Tree* t = new Tree;
+//	t->left = 0; t->right = 0;
+//	t->info = l->info;
+//	return t;
+//}
+
+Tree *deltree
+
+int main()
 {
-	Tree* t = new Tree;
-	t->left = 0; t->right = 0;
-	t->info = l->info;
-	return t;
+
 }
 
-int main
-
-//удалить с дерева все чётные элементы
+//удалить с дерева все чётные элементы, рекурсия
