@@ -230,3 +230,54 @@ int main()
 //создать дерево и сохранить его в текстовый файл
 
 //для int main сделать дерево, указатель, ввести с клавиатуры, затем вывести функцию - (что-то)... и в конце вызвать функцию FileToTree | указатель на дерево(узел), формируем дерево с клавиатуры, пишем дерево в файл tree.txt, читаем файл tree.txt и выводим дерево на экран.
+
+int main()
+{
+	Tree* root = NULL;
+	setlocale(LC_ALL, "rus");
+	int a, b;
+	int n;
+	bool flag = 1;
+	cin >> n;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> a;
+		f << a << endl;
+		root = addStick(root, a);
+	}
+	/*f.close();*/
+
+	cout << "Дерево";
+	PrintTree(root);
+	cout << endl;
+
+	ofstream f("tree.txt");
+	TreeToFile(root, f);
+	f.close();
+
+	ifstream h("tree.txt");
+	Tree* newRoot = NULL;
+	h >> a;
+	while (!h.eof())
+	{
+		h >> b;
+		if (a >= b) flag = 0;
+	}
+
+
+
+	/*ifstream h("tree.txt");
+	h >> a;
+	while (!h.eof())
+	{
+		h >> b;
+		if (a >= b) flag = 0;
+	}
+	h.close();
+	if (flag == 1) {
+		cout << "Список упорядочен по возрастанию" << endl;
+	}
+	else cout << "Список не упорядочен" << endl;
+	system("pause");
+	return 0;*/
+}
