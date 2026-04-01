@@ -1,0 +1,276 @@
+#include <fstream>
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+//int main()
+//{
+//	setlocale(LC_ALL, "rus");
+//	char buff[50];
+//	ifstream fin("leonid.txt");/* открыли файл для чтения*/
+//	fin >> buff;// считали первое слово из файла
+//	cout << buff << endl;
+//	fin.getline(buff, 50);// считали строку
+//	fin.close();// закрыли файл
+//	cout << buff << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//int main() {
+//	setlocale(LC_ALL, "rus");
+//	char buff[100]; // буфер
+//	ifstream fin("first.txt");
+//	if (!fin.is_open())
+//		cout << "Файл не может быть открыт!\n";
+//	else {
+//		fin >> buff;
+//		cout << buff << endl;
+//		fin.getline(buff, 100);
+//		fin.close(); // закрываем файл
+//		cout << buff << endl;
+//	}
+//	system("pause");
+//	return 0;
+//}
+
+//int main() {
+//	setlocale(LC_ALL, "RUSSIAN");
+//	cout << "Укажите имя файла: ";
+//	string s;
+//	cin >> s;
+//	ifstream f;
+//	f.open(s);
+//	if (!f.is_open()) {
+//		cout << "ошибка открытия файла\n";
+//		system("pause");
+//		return 0;
+//	}
+//	while (!f.eof()) {
+//		getline(f, s);
+//		int i = s.find_first_of("+-*/");
+//		cout << s << " = ";
+//		if (i == -1) {
+//			cout << "ошибка\n";
+//			continue;
+//		}
+//		long a = atol(s.substr(0, i).c_str());
+//		long b = atol(s.substr(i + 1,
+//			s.length()).c_str());
+//		switch (s[i]) {
+//		case '+': a += b; break;
+//		case '-': a -= b; break;
+//		case '/': a /= b; break;
+//		case '*': a *= b; break;
+//		}
+//		cout << a << endl;
+//	}
+//	f.close();
+//	system("pause");
+//	return 0;
+//}
+
+//using namespace std;
+//double fun(double x);
+//int main() {
+//	setlocale(LC_ALL, "RUSSIAN");
+//	cout << "Укажите имя файла: ";
+//	ofstream f;
+//	{
+//		string s;
+//		cin >> s;
+//		f.open(s);
+//	}
+//	double a, b, h;
+//	f.width(10); f << "x";
+//	f.width(15); f << "y" << endl;
+//	cout << "Укажите начало, конец отрезка и шаг: ";
+//		cin >> a >> b >> h ;
+//	for (double x = a; x <= b; x += h) {
+//		f.width(10); f << x;
+//		f.width(15); f << fun(x) << endl;
+//	}
+//	f.close();
+//	return 0;
+//}
+//double fun(double x) {
+//	return x * x + 5 * x;
+//}
+
+//int main()
+//{
+//	setlocale(LC_ALL, "rus");
+//	int s;
+//	int n;
+//	ofstream f("f.txt");
+//	cin >> n;
+//	for (int i = 0; i < n; i++)
+//	{
+//		cin >> s;
+//		f << s << endl;
+//	}
+//	f.close();
+//	ifstream h("f.txt");
+//	ofstream g("g.txt");
+//	while (h >> s)
+//	{
+//		if (s >= 0) g << s << endl;
+//	}
+//	h.close();
+//	g.close();
+//	system("pause");
+//	return 0;
+//}
+
+struct Tree
+{
+	int data;
+	Tree* left;
+	Tree* right;
+};
+
+Tree* CreateSol(int data)
+{
+	Tree* root = new Tree;
+	root->data = data;
+	root->left = NULL;
+	root->right = NULL;
+
+	return root;
+}
+
+Tree* addStick(Tree* root, int data)
+{
+	if (root == NULL)
+	{
+		return CreateSol(data);
+	}
+	if (data < root->data)
+	{
+		root->left = addStick(root->left, data);
+	}
+	else 
+		if (data > root->data)
+		{
+			root->right = addStick(root->right, data);
+	}
+	return root;
+}
+
+void PrintTree(Tree* t)
+{
+	if (t = NULL) return;
+	PrintTree(t->left);
+	cout << t->data<<" ";
+	PrintTree(t->right);
+}
+
+void TreeToFile(Tree* t, ofstream &f)
+{
+	if (t != nullptr)
+	{
+		f << t->data << endl;
+		TreeToFile(t->left, f);
+		TreeToFile(t->right, f);
+}
+}
+
+//чтение и запись дерева
+
+Tree* FileToTree(ifstream& f)
+{
+	//читаем дерево из файла
+
+	//int info;
+	//Tree* t = NULL;
+	//while (f >> info)
+	//{
+	//	t = addStick(t, info);
+	//}
+	//return t;
+
+	Tree* t = new Tree;
+	f >> t->data;//корень дерева
+	t->left = NULL; t->right = NULL; //готовое дерево из 1 узла
+	while (f >> t->data) //пока есть что читать
+	{
+		addStick(t, t->data); 
+	}
+	return t;
+}
+
+//для int main сделать дерево, указатель, ввести с клавиатуры, затем вывести функцию - (что-то)... и в конце вызвать функцию FileToTree | указатель на дерево(узел), формируем дерево с клавиатуры, пишем дерево в файл tree.txt, читаем файл tree.txt и выводим дерево на экран.
+
+int main()
+{
+	Tree* root = NULL;
+	setlocale(LC_ALL, "rus");
+	int a, b;
+	int n;
+	bool flag = 1;
+	cin >> n;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> a;
+		f << a << endl;
+		root = addStick(root, a);
+	}
+	/*f.close();*/
+
+	cout << "Дерево";
+	PrintTree(root);
+	cout << endl;
+
+	ofstream f("tree.txt");
+	TreeToFile(root, f);
+	f.close();
+
+	ifstream h("tree.txt");
+	Tree* newRoot = NULL;
+	h >> a;
+	while (!h.eof())
+	{
+		h >> b;
+		if (a >= b) flag = 0;
+		a = b;
+	}
+	h.close();
+
+	if (flag == 1) {
+		cout << "Список упорядочен по возрастанию" << endl;
+	}
+	else cout << "Список не упорядочен" << endl;
+
+	ifstream g("tree.txt");
+	int info;
+
+	g >> info;
+	while (!g.eof())
+	{
+		newRoot = addStick(newRoot, info);
+		g >> info;
+	}
+	g.close();
+
+	cout << "Дерево из файла: ";
+	PrintTree(newRoot);
+	cout << endl;
+
+	/*ifstream h("tree.txt");
+	h >> a;
+	while (!h.eof())
+	{
+		h >> b;
+		if (a >= b) flag = 0;
+	}
+	h.close();
+	if (flag == 1) {
+		cout << "Список упорядочен по возрастанию" << endl;
+	}
+	else cout << "Список не упорядочен" << endl;
+	system("pause");
+	return 0;*/
+}
+
+//создать дерево и сохранить его в текстовый файл
