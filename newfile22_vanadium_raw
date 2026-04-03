@@ -1,0 +1,126 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <clocale>
+
+using namespace std;
+
+//1
+//int main() {
+//	setlocale(LC_ALL, "RUSSIAN");
+//	cout << "Укажите имя файла: ";
+//	string s;
+//	cin >> s;
+//	/*Запись в бинарный файл*/
+//	ofstream f_out;
+//	f_out.open(s, ios::binary);
+//	int x = 100;
+//	double y = 5.988;
+//	f_out.write((char*)&x, sizeof(x));
+//	f_out.write((char*)&y, sizeof(y));
+//	f_out.close();
+//	/*Чтение из бинарного файла*/
+//	int x1 = 0;
+//	double y1 = 0;
+//	ifstream f_in(s, ios::binary);
+//	f_in.read((char*)&x1, sizeof(x1));
+//	f_in.read((char*)&y1, sizeof(y1));
+//	f_in.close();
+//	cout << x1 << '\n' << y1 << '\n';
+//	system("pause");
+//	return 0;
+//}
+
+//2
+//struct Worker {
+//	char name[255]; //Фамилия
+//	float salary; //Зар. плата
+//	int age; //Возраст 
+//};
+
+//int main() {
+//	setlocale(LC_ALL, "RUSSIAN");
+//	//cout << "Укажите имя файла: ";
+//	//const string FName = "worker.bin";
+//	//Worker teacher;
+//	//strcpy_s(teacher.name, "Pupkin");
+//	//teacher.age = 30;
+//	//teacher.salary = 1523.99;
+//	//fstream f1(FName, ios::binary | ios::out);
+//	//f1.write((char*)&teacher, sizeof(teacher));
+//	//f1.close();
+//	//Worker w;
+//	//fstream f2(FName, ios::binary | ios::in);
+//	//f2.read((char*)&w, sizeof(w));
+//	//f2.close();
+//	//cout << w.name << '\t' << w.age << '\t' <<
+//	//	w.salary << '\n';
+//	//system("pause");
+//	//return 0;
+//}
+
+//______________________________________________________________________________________________________________________
+
+struct Tree
+{
+	int data;
+	Tree* left;
+	Tree* right;
+};
+
+//сохранение дерева в файл
+void TreeToFile(Tree* root, ofstream* f)
+{
+	if (root != nullptr)
+	{
+		f << t->data << endl;
+		TreeToFile(t->left, f);
+		TreeToFile(t->right, f);
+	}
+}
+
+void Add(Tree*& root, int val)
+{
+	if (root == NULL)
+	{
+		root = new Tree;
+		root->data = val;
+		root->left = NULL;
+		root->right = NULL;
+	}
+	if (val < root->data)
+		Add(root->left, val);
+	else
+		Add(root->right, val);
+}
+
+//чтение дерева из файла
+Tree* FileToTree(ifstream& f)
+{
+	int val;
+	f.read((char*)&val, sizeof(val));
+	Tree* stick = new Tree;
+	stick->data = val;
+	stick->left = FileToTree(f);
+	stick->right = FileToTree(f);
+
+	return stick;
+}
+
+int main() {
+	setlocale(LC_ALL, "RUSSIAN");
+	Tree* root = NULL;
+	int x;
+	cin >> x;
+	if (x != 0)
+	{
+		root = new Tree;
+		root->data = x;
+		root->left=NULL;
+		root->right=NULL;
+	}
+	for (cin >> x, x, cin >> x)
+		Add(root, x);
+	ofstream f;
+	f.open //дописать
+}
