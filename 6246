@@ -1,0 +1,48 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <clocale>
+
+using namespace std;
+
+struct Tree
+{
+	int data;
+	Tree* left;
+	Tree* right;
+};
+
+//сохранение дерева в файл
+void TreeToFile(Tree* root, ofstream* f)
+{
+	if (root != nullptr)
+	{
+		f << t->data << endl;
+		TreeToFile(t->left, f);
+		TreeToFile(t->right, f);
+	}
+}
+
+//чтение дерева из файла
+
+
+int main() {
+	setlocale(LC_ALL, "RUSSIAN");
+	cout << "Укажите имя файла: ";
+	const string FName = "worker.bin";
+	Worker teacher;
+	strcpy_s(teacher.name, "Pupkin");
+	teacher.age = 30;
+	teacher.salary = 1523.99;
+	fstream f1(FName, ios::binary | ios::out);
+	f1.write((char*)&teacher, sizeof(teacher));
+	f1.close();
+	Worker w;
+	fstream f2(FName, ios::binary | ios::in);
+	f2.read((char*)&w, sizeof(w));
+	f2.close();
+	cout << w.name << '\t' << w.age << '\t' <<
+		w.salary << '\n';
+	system("pause");
+	return 0;
+}
