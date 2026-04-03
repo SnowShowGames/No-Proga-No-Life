@@ -62,3 +62,15 @@ int main() {
 	system("pause");
 	return 0;
 }
+
+
+
+int main() {
+	setlocale(LC_ALL, "RUSSIAN");
+	Tree* root = NULL;
+	int x;
+	while (x != 0)
+	{
+		cin >> x;
+	}
+}
