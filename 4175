@@ -1,0 +1,64 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <clocale>
+
+using namespace std;
+
+//1
+//int main() {
+//	setlocale(LC_ALL, "RUSSIAN");
+//	cout << "Укажите имя файла: ";
+//	string s;
+//	cin >> s;
+//	/*Запись в бинарный файл*/
+//	ofstream f_out;
+//	f_out.open(s, ios::binary);
+//	int x = 100;
+//	double y = 5.988;
+//	f_out.write((char*)&x, sizeof(x));
+//	f_out.write((char*)&y, sizeof(y));
+//	f_out.close();
+//	/*Чтение из бинарного файла*/
+//	int x1 = 0;
+//	double y1 = 0;
+//	ifstream f_in(s, ios::binary);
+//	f_in.read((char*)&x1, sizeof(x1));
+//	f_in.read((char*)&y1, sizeof(y1));
+//	f_in.close();
+//	cout << x1 << '\n' << y1 << '\n';
+//	system("pause");
+//	return 0;
+//}
+
+//2
+struct Worker {
+	char name[255]; //Фамилия
+	float salary; //Зар. плата
+	int age; //Возраст 
+};
+
+//сохранение дерева в файл
+
+//чтение дерева из файла
+
+int main() {
+	setlocale(LC_ALL, "RUSSIAN");
+	cout << "Укажите имя файла: ";
+	const string FName = "worker.bin";
+	Worker teacher;
+	strcpy_s(teacher.name, "Pupkin");
+	teacher.age = 30;
+	teacher.salary = 1523.99;
+	fstream f1(FName, ios::binary | ios::out);
+	f1.write((char*)&teacher, sizeof(teacher));
+	f1.close();
+	Worker w;
+	fstream f2(FName, ios::binary | ios::in);
+	f2.read((char*)&w, sizeof(w));
+	f2.close();
+	cout << w.name << '\t' << w.age << '\t' <<
+		w.salary << '\n';
+	system("pause");
+	return 0;
+}
