@@ -22,3 +22,7 @@ https://drive.google.com/file/d/1WVca7JKJkqMXMDBVtiqydgt7TjKkMjU7/view?usp=drive
 Зачёт по проге получен, можно и пообедать!
 
 God, dang it!!!
+
+
+
+Вариант 16; Индивидуальное задание. Начало сдачи с 20 мая. Все задания в одном файле
