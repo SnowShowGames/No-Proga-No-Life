@@ -1,0 +1,50 @@
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+
+int maxVector(vector <int> x)
+{
+	int max=x[0];
+	for (auto i : x)
+	{
+	if (max < i) max = i;
+}
+	return max;
+}
+
+int SumVector(vector <int> x)
+{
+	int sm=0;
+	for (auto i : x)
+	{
+		sm += i;
+	}
+	return sm;
+}
+
+int main() {
+	vector<int> v;
+	setlocale(LC_ALL, "RUSSIAN");
+	cout << "Введите список(признак окончания 0):" << endl;
+	int x;
+	for (cin >> x; x; cin >> x) {
+		v.push_back(x);
+	}
+	cout << endl;
+	//for (int i = 0; i < v.size();) {
+	//	if (v[i] % 2 == 0)
+	//		v.erase(v.begin() + i);
+	//	else
+	//		++i;
+	//}
+	cout << SumVector(v) << endl;
+	cout <<"max "<< maxVector(v) << endl;
+	for (vector<int>::reverse_iterator it = v.rbegin(); it != v.rend(); ++it)
+		cout << *it << ' ';
+	return 0;
+}
+
+//максимальный лимит
+//найти наименьший эл. индекс которого является числом Фибоначи. !не элеменент, а индекс!
