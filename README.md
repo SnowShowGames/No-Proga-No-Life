@@ -26,3 +26,6 @@ God, dang it!!!
 
 
 Вариант 16; Индивидуальное задание. Начало сдачи с 20 мая. Все задания в одном файле
+
+
+<img width="481" height="583" alt="image" src="https://github.com/user-attachments/assets/316dd3b1-3699-47a1-92a8-78de74deda2b" />
