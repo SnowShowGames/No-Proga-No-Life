@@ -80,17 +80,29 @@ void VectorToFile(vector <int>& v)
 	//	f << x<<" ";
 	//	//i--;
 	//}
-	//f.close();\
+	//f.close();
 
-	int i = v.size();
+	int i = v.size()-1; //идём с конца, но минусуем последнее место
 	ofstream f("vector.txt");//файловый указатель ov
-	while (i)
+	while (i>=0)
 	{
 		int x = v[i];
 		f << x << " ";
 		i--;
 	}
 	f.close();
+}
+
+//чтение файла в вектор
+vector <int> vectorFromFile(ifstream& iv)
+{
+	vector <int> v;
+	int i = v[0];
+	while (!iv.eof())
+	{
+		v.push_back(v[i]);
+	}
+	return v;
 }
 
 int main() {
@@ -116,6 +128,8 @@ int main() {
 
 	cout << endl;
 	cout << "Нужный нам элемент: " << minIndexVector(v) << endl;
+
+	vectorFromFile(v);
 
 	return 0;
 }
