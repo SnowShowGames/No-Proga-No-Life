@@ -1,0 +1,125 @@
+#include <vector>
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+bool Fibonaci(int n) //проверка на Фибоначчи
+{
+	if (n < 0) return 0;
+	if (n == 0 || n == 1) return 1;
+	int curr = 1;
+	int last = 1;
+	while (curr < n)
+	{
+		int nxt = curr;
+		curr = last;
+		last = nxt + last;
+	}
+	if (curr == n)
+		return 1;
+
+	return 0;
+}
+
+//максимальный лимит
+int maxVector(vector <int> x)
+{
+	int max = x[0]; // та же история что и с minIndexVector
+	for (auto i : x)
+	{
+		if (max < i) max = i;
+	}
+	return max;
+}
+
+//сумма вектора
+int SumVector(vector <int> x)
+{
+	int sm = 0;
+	for (auto i : x)
+	{
+		sm += i;
+	}
+	return sm;
+}
+
+//найти наименьший эл. индекс которого является числом Фибоначи. !не элеменент, а индекс!
+//дз
+int minIndexVector(vector <int> x)
+{
+	int mn = x[0]; //x[0] это местный максимум, ни в коем случае не 0 и тем более не -1
+	bool flag = 0;
+	for (int i = 0; i < x.size(); i++)
+	{
+		if (Fibonaci(i))
+		{
+			if (x[i] < mn)
+			{
+				mn = x[i];
+				flag = 1;
+			}
+		}
+	}
+	if (!flag) {
+		cout << "???" << endl;
+		return 0;
+	}
+	return mn;
+}
+
+//сохранить в текстовый файл вектор
+void VectorToFile(vector <int>& v)
+{
+	//int i = v.size();
+	//ofstream f("vector.txt");//файловый указатель ov
+	//for (int i=0;i<v.size();i++)
+	//{
+	//	int x = v[i];
+	//	f << x<<" ";
+	//	//i--;
+	//}
+	//f.close();\
+
+	int i = v.size();
+	ofstream f("vector.txt");//файловый указатель ov
+	while (i)
+	{
+		int x = v[i];
+		f << x << " ";
+		i--;
+	}
+	f.close();
+}
+
+int main() {
+	vector<int> v;
+	setlocale(LC_ALL, "RUSSIAN");
+	cout << "Введите список(признак окончания 0):" << endl;
+	int x;
+	for (cin >> x; x; cin >> x) {
+		v.push_back(x);
+	}
+	cout << endl;
+	//for (int i = 0; i < v.size();) {
+	//	if (v[i] % 2 == 0)
+	//		v.erase(v.begin() + i);
+	//	else
+	//		++i;
+	//}
+	VectorToFile(v);
+	cout << SumVector(v) << endl;
+	cout << "max " << maxVector(v) << endl;
+	for (vector<int>::reverse_iterator it = v.rbegin(); it != v.rend(); ++it)
+		cout << *it << ' ';
+
+	cout << endl;
+	cout << "Нужный нам элемент: " << minIndexVector(v) << endl;
+
+	return 0;
+}
+
+//максимальный лимит
+//дз
+//найти наименьший эл. индекс которого является числом Фибоначи. !не элеменент, а индекс!
