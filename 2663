@@ -1,0 +1,20 @@
+#include <iostream>
+#include <stack>
+
+using namespace std;
+
+void PrintStack()
+{
+
+}
+
+int main()
+{
+	stack <int> st;
+	int x;
+	while (!st.empty())
+	{
+		cin >> x;
+		st.push(x);
+	}
+}
