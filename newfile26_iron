@@ -1,0 +1,84 @@
+#include <iostream>
+#include <stack>
+
+using namespace std;
+
+//--------СТЕК---------------
+
+void PrintStack(stack <int> st)
+{
+	while (!st.empty())
+	{
+		cout << st.top()<<" ";
+		st.pop();
+	}
+}
+
+//распечатать в прямом порядке
+stack <int> ReversedPrintStack(stack <int> st)
+{
+	stack <int> st1;
+	while (!st.empty())
+	{
+		st1.push(st.top());
+		st.pop();
+	}
+	while (!st1.empty())
+	{
+		cout << st1.top() << " ";
+		st1.pop();
+	}
+	return st1;
+}
+
+//меняет 1 последний элемент стека *
+void ReversedNumbers(stack <int> st)
+{
+	stack <int> st1;
+	int last = st.top();
+	st.pop();
+	while (!st.empty())
+	{
+		st1.push(st.top());
+		st.pop();
+	}
+	int first = st1.top();
+	st1.pop();
+	st1.push(first);
+	while (!st.empty())
+	{
+		st1.push(st.top());
+		st.pop();
+	}
+	if (!st1.empty())
+	{
+		st1.push(last);
+	}
+	//while (!st1.empty())
+	//{
+	//	st.push(st1.top());
+	//	st1.pop();
+	//}
+	while (!st1.empty())
+	{
+		cout << st1.top() << " ";
+		st1.pop();
+	}
+}
+
+int main()
+{
+	stack <int> st;
+	int x=1;
+	while (x!=0)
+	{
+		cin >> x;
+		st.push(x);
+	}
+	//PrintStack(st);
+	cout << endl;
+	/*ReversedPrintStack(st);*/
+	ReversedNumbers(st);
+}
+
+//вводим стек пока не 0 и распечатываем
