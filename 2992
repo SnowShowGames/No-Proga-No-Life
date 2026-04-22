@@ -76,5 +76,32 @@ int main()
 	int x;
 }
 
+Пример 2. Дано n целых чисел (n<=1000000). Найти наиболее часто встречающееся число.
+#include <iostream>
+#include <map>
+using namespace std;
+int main() {
+setlocale(LC_ALL, "RUSSIAN");
+int n;
+cin >> n;
+map <long, long> m;
+for (long i = 0; i<n; ++i) {
+long x;
+cin >> x;
+++m[x];
+}
+if (n == 0) {
+cout << "не найдено";
+return 0;
+}
+pair<long, long>max=make_pair(m.begin()->first,m.begin()->second);
+for (map <long, long>::iterator it=m.begin(); it != m.end(); ++it) {
+if(max.second < it->second)
+max=make_pair(it->first,it->second);
+} cout << "значение "<<max.first<< " встречается "<<max.second<<" раз(а)"<<endl;
+system("pause");
+return 0;
+}
+
 //без файла 
 //Во входном файле задан набор слов и целых чисел, разделенных пробелами. Найти все слова, встречающиеся столько же раз, сколько первое число.
