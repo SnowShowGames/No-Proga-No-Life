@@ -1,7 +1,8 @@
 int main()
 {
 	setlocale(LC_ALL, "RUS");
-	set <vector<char>> sen;
+	//set <vector<char>> sen;
+	set<string> sen;
 	string slovo;
 
 	while (cin >> slovo)
@@ -15,7 +16,11 @@ int main()
 		string ar;
 		for (multiset<char>::iterator it = letters.begin(); it != letters.end(); ++it)
 		{
-			ar+=it;
+			ar.push_back(*it);
 		}
+		sen.insert(ar);
+		cout << slovo << " ";
 	}
+	cout << endl;
+	//сравниваем длину, и чтобы кол-во букв было одиноковым.
 }
