@@ -1,0 +1,104 @@
+#include <iostream>
+#include <set>
+#include <vector>
+using namespace std;
+
+//int main() {
+//	setlocale(LC_ALL, "RUSSIAN");
+//	cout << "Введите элементы (признак завершения 0)\n";
+//	int x;
+//	set <int> positive, negative;
+//	for (cin >> x; x != 0; cin >> x)
+//		if (x > 0)
+//			positive.insert(x);
+//		else
+//			negative.insert(x);
+//	cout << "Ответ:" << endl; for (set <int>::iterator it = positive.begin(); it != positive.end(); ++it)
+//		cout << *it << ' ';
+//	for (set <int>::reverse_iterator it = negative.rbegin(); it != negative.rend(); ++it)
+//		cout << *it << ' ';
+//	cout << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//Во входной строке записана последовательность чисел через пробел. Для каждого числа выведите слово YES (в отдельной строке), если это число ранее встречалось в последовательности или NO, если не встречалось.
+// через find(),и через count()
+
+//2 вариант count()
+//int main()
+//{
+//	setlocale(LC_ALL, "RUS");
+//	set <int> s;
+//	int num;
+//
+//	while(cin>>num)
+//	{
+//		if (s.count(num))
+//		{
+//			cout << "Yes" << endl;
+//		}
+//		else
+//		{
+//			cout << "No" << endl;
+//			s.insert(num);
+//		}
+//	}
+//	return 0;
+//}
+
+//1 вариант find()
+//int main()
+//{
+//	setlocale(LC_ALL, "RUS");
+//	set <int> sen;
+//	int x;
+//
+//	while (cin >> x)
+//	{
+//		if (sen.find(x) != sen.end())
+//		{
+//			cout << "YES" << endl;
+//		}
+//		else
+//		{
+//			cout << "NO" << endl;
+//		}
+//		sen.insert(x);
+//	}
+//	return 0;
+//}
+
+//2номер
+//int main()
+//{
+//	setlocale(LC_ALL, "RUS");
+//	set <int> snt;
+//	int x;
+//
+//
+//}
+
+//без файла 
+//Во входном файле задан набор слов и целых чисел, разделенных пробелами. Найти все слова, встречающиеся столько же раз, сколько первое число.
+
+//Анаграммы – это слова, у которых те же буквы в том же количестве, но они располагаются в другом порядке. Исключить из массива строк слова-анаграммы.
+//через set, использовать в процессе size
+int main()
+{
+	setlocale(LC_ALL, "RUS");
+	set <string> sen;
+	string slovo;
+
+	while (cin >> slovo)
+	{
+		multiset <char> letters;
+		//vector <char> letters;
+		for (int i = 0; i < slovo.size(); i++)
+		{
+			letters.insert(slovo[i]);
+		}
+
+		
+	}
+}
