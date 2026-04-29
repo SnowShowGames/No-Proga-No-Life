@@ -1,0 +1,76 @@
+#include <iostream>
+#include <map>
+#include <vector>
+#include <string>
+#include <set>
+
+
+//КОНТЕЙНЕР map
+
+using namespace std;
+
+//int main()
+//{
+//	map <int, string> m;
+//}
+
+//int main() 
+//{
+//	setlocale(LC_ALL, "RUSSIAN");
+//	int n;
+//	cin >> n;
+//	map <long, long> m;
+//	for (long i = 0; i < n; ++i) {
+//		long x;
+//		cin >> x;
+//		++m[x];
+//	}
+//	if (n == 0) {
+//		cout << "не найдено";
+//		return 0;
+//	}
+//	pair<long, long>max = make_pair(m.begin()->first, m.begin()->second);
+//	for (map <long, long>::iterator it = m.begin(); it != m.end(); ++it) {
+//		if (max.second < it->second)
+//			max = make_pair(it->first, it->second);
+//	} cout << "значение " << max.first << " встречается " << max.second << " раз(а)" << endl;
+//	system("pause");
+//	return 0;
+//}
+
+//Во входной строке записана последовательность чисел через пробел. Для каждого числа выведите слово YES (в отдельной строке), если это число ранее встречалось в последовательности или NO, если не встречалось.
+//int main()
+//{
+//	setlocale(LC_ALL, "Rus");
+//	int n;
+//	cin >> n;
+//	map <long, long> chsl;
+//	for (int i = 0; i < n; i++)
+//	{
+//		long x;
+//		cin >> x;
+//
+//		if (chsl.find(x) != chsl.end())
+//		{
+//			cout << "YES" << " ";
+//		}
+//		else
+//		{
+//			cout << "NO" << " ";
+//		}
+//		++chsl[x];
+//	}
+//	return 0;
+//}
+
+//Анаграммы – это слова, у которых те же буквы в том же количестве, но они располагаются в другом порядке. Исключить из массива строк слова-анаграммы.
+//в векторе могут храниться map'ы
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+	int n;
+	vector <string> pk;
+	map <string, int> dgt;
+
+
+}
