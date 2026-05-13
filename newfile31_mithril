@@ -1,0 +1,121 @@
+#include <queue>
+#include <iostream>
+#include <clocale>
+#include <set>
+#include <vector>
+
+using namespace std;
+
+//3 Анаграммы – это слова, у которых те же буквы в том же количестве, но они располагаются в другом порядке. Исключить из массива строк слова-анаграммы.
+//сделать через очередь
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+	vector<string> slova = { "ВОЗ","ЗОВ","ТОК","КОТ","ПАРА","АРАП","ТОРТ","ТОРГ"};
+	queue <string> res;
+	set <string> anagrams;
+
+	for (int i = 0; i < slova.size(); i++)
+	{
+		string c = slova[i];
+		for (int j = 0; j < c.size() - 1; j++)
+		{
+			for (int k = 0; k < c.size() -j- 1; k++)
+			{
+				if (c[k] > c[k + 1])
+				{
+					char tmpr = c[k];
+					c[k] = c[k + 1];
+					c[k + 1] = tmpr;
+				}
+			}
+		}
+		if (anagrams.find(c) == anagrams.end())
+		{
+			anagrams.insert(c);
+			res.push(slova[i]);
+		}
+	}
+	cout << "_____" << endl;;
+	for (string keg : anagrams)
+	{
+		cout << keg << " ";
+	}
+	cout << endl;
+	while (!res.empty())
+	{
+		cout << res.front() << " ";
+		res.pop();
+	}
+	cout << endl;
+}
+
+//БЕЗ SET
+string keysToWords(string word)
+{
+	for (int j = 0; j < word.size() - 1; j++)
+	{
+		for (int k = 0; k < word.size() - j - 1; k++)
+		{
+			if (word[k] > word[k + 1])
+			{
+				char tmpr = word[k];
+				word[k] = word[k + 1];
+				word[k + 1] = tmpr;
+			}
+		}
+	}
+	return word;
+}
+vector <string> findKeyForMyWord(vector<string> words)
+{
+	vector <string> kg;
+	for (int i = 0; i < words.size(); i++)
+	{
+		string c = keysToWords(words[i]);
+
+		bool f = 0;
+		for (int j = 0; j < kg.size(); j++)
+		{
+			if (kg[j] == c)
+			{
+				f = 1;
+			}
+		}
+		if (!f)
+		{
+			kg.push_back(c);
+		}
+	}
+	return kg;
+}
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+	queue <string> res;
+	vector <string> slova = { "ВОЗ","ЗОВ","ТОК","КОТ","ПАРА","АРАП","ТОРТ","ТОРГ" };
+	vector <string> unusualKeys = findKeyForMyWord(slova);
+
+	//for (int i = 0; i < unusualKeys.size(); i++)
+	//{
+	//	cout << unusualKeys[i] << " ";
+	//}
+	//cout << endl;
+
+	for (int i = 0; i<slova.size(); i++)
+	{
+		string kluchSlova = keysToWords(slova[i]);
+		//поиск ключа
+		for (int j = 0; j < unusualKeys.size(); j++)
+		{
+			if (unusualKeys[i] == kluchSlova)
+			{
+				res.push(slova[i]);
+				unusualKeys[j];
+			}
+		}
+	}
+
+
+}
+//стр 29 номер 2
