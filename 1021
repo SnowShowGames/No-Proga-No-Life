@@ -1,0 +1,13 @@
+#include <queue>
+#include <iostream>
+#include <clocale>
+
+using namespace std;
+
+//3 Анаграммы – это слова, у которых те же буквы в том же количестве, но они располагаются в другом порядке. Исключить из массива строк слова-анаграммы.
+//сделать через очередь
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+	queue<string> q = {"",""};
+}
