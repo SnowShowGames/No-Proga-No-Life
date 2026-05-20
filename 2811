@@ -1,0 +1,31 @@
+#include <iostream>
+#include <queue>
+
+using namespace std;
+//Создайте очередь и добавьте в неё целые числа.Затем найдите среднее значение элементов очереди и поставьте первым элементом.
+
+int avarage(int n)
+{
+	if (n == 0) break;
+	for (int i = 0; i < n; i++)
+	{
+
+	}
+}
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+	queue <int> av;
+	queue <int> num;
+	queue <int> res;
+	int qnum;
+	cin >> qnum;
+	for (int i = 0; i < qnum; i++)
+	{
+		int z = 0;
+		cin >> z;
+		num.push(z);
+	}
+	double long sum;
+	res.push()
+}
