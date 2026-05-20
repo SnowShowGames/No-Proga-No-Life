@@ -1,0 +1,41 @@
+int avarage(queue<int> n)
+{
+	if (n.empty()) return 0;
+	int sm = 0;
+	while(!n.size())
+	{
+		sm += n.front();
+		n.pop();
+	}
+	return sm / n.size();
+}
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+	queue <int> av; //среднее
+	queue <int> num; //цифры
+	queue <int> res; //итог
+	int qnum;
+	cin >> qnum;
+	cout << "|||" << endl;
+	for (int i = 0; i < qnum; i++)
+	{
+		int z = 0;
+		cin >> z;
+		num.push(z);
+	}
+	int avg = avarage(num);
+	res.push(avg);
+	while (!num.empty())
+	{
+		res.push(num.front());
+		res.pop();
+	}
+	cout << "Среднее значение: ";
+	while (!res.empty())
+	{
+		cout << res.front() << " ";
+		res.pop();
+	}
+	cout << endl;
+}
