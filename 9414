@@ -1,0 +1,17 @@
+//Создайте очередь и добавьте в неё несколько целых чисел. Измените очередь так, чтобы после каждого элемента следующим элементом был квадрат этого числа.
+
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+	queue<int> res;
+	queue<int>num;
+	int qnum;
+	cin >> qnum;
+	cout << "|||" << endl;
+	for (int i = 0; i < qnum; i++)
+	{
+		int y = 0;
+		cin >> y;
+		num.push(y);
+	}
+}
