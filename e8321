@@ -1,0 +1,19 @@
+#include <iostream>
+#include <clocale>
+
+//Номер 3
+struct Tree
+{
+	int data;
+	Tree* left;
+	Tree* right;
+};
+struct Tree1 {
+	int data;
+	Tree1* left;
+	Tree1* right;
+};
+int main()
+{
+
+}
