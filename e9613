@@ -1,0 +1,40 @@
+#include <iostream>
+#include <clocale>
+
+//Номер 3
+struct Tree
+{
+	int data;
+	Tree* left;
+	Tree* right;
+};
+
+Tree* createTree(int val)
+{
+	Tree* newTree = new Tree;
+	newTree->data = val;
+	newTree->
+}
+
+Tree* insertTree(Tree* root, int val)
+{
+	if (val < root->data)
+	{
+		root->left = insertTree(root->left, val);
+	}
+	else if (val>root->data)
+	{
+		root->right = insertTree(root->right, val);
+	}
+	return root;
+}
+
+void combineTrees(Tree* root)
+{
+	combineTrees(root->left);
+	combineTrees(root->right);
+}
+int main()
+{
+
+}
