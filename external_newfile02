@@ -1,0 +1,139 @@
+#include <iostream>
+#include <cmath>
+#include <clocale>
+#include <vector>;
+
+using namespace std;
+
+struct Nody
+{
+	int info;
+	Nody* prev;
+	Nody* next;
+};
+
+Nody* create_list_from_vector(const vector<int>& vals) {
+    if (vals.empty()) return nullptr;
+
+    Nody* head = nullptr;
+    Nody* tail = nullptr;
+
+    for (int v : vals) {
+        Nody* node = new Nody;
+        node->info = v;
+        node->prev = nullptr;
+        node->next = nullptr;
+
+        if (!head) {
+            head = tail = node;
+        }
+        else {
+            tail->next = node;
+            node->prev = tail;
+            tail = node;
+        }
+    }
+
+    return head;
+}
+
+//вывод списка
+void print_list(Nody* head) {
+    if (!head) {
+        cout << "Список пуст" << endl;
+        return;
+    }
+
+    Nody* current = head;
+    while (current) {
+        cout << current->info << " ";
+        current = current->next;
+    }
+    cout << endl;
+}
+
+
+//сумма и кол-во элементов
+void calculate_sum_and_count(Nody* head, double& sum, int& count) {
+    sum = 0;
+    count = 0;
+    Nody* current = head;
+    while (current) {
+        sum += current->info;
+        count++;
+        current = current->next;
+    }
+}
+
+void task2() {
+    cout << "--------------------------------------------------\n";
+    cout << "Задача 2. Дан двунаправленный список целых чисел.\n";
+    cout << "Переставить элементы так, чтобы сначала шли числа меньше среднего арифметического,\n";
+    cout << "а затем – числа больше среднего. Элементы, равные среднему, остаются на месте.\n\n";
+
+    vector<int> vals = { 2, 54, 51, 1, 56, 21, 45, 8, 63, 20, 4 };
+
+    //создание списока из вектора
+    Nody* head = create_list_from_vector(vals);
+
+    cout << "Входные данные (двунаправленный список):\n  ";
+    print_list(head);
+    cout << "\n";
+
+    //среднее арифметическое
+    double sum = 0;
+    int count = 0;
+    calculate_sum_and_count(head, sum, count);
+    double avg = sum / count;
+
+    cout << "Среднее арифметическое = " << avg << endl << endl;
+
+    //деление элементы на три группы: среднее и т.д
+    vector<int> less, equal, greater;
+    Nody* current = head;
+    while (current) {
+        if (current->info < avg) {
+            less.push_back(current->info);
+        }
+        else if (current->info > avg) {
+            greater.push_back(current->info);
+        }
+        else {
+            equal.push_back(current->info);
+        }
+        current = current->next;
+    }
+
+    //изменения для списока: сначала меньшие, потом равные, потом большие
+    current = head;
+
+    //для меньших эл-ов
+    for (int v : less) {
+        if (current) {
+            current->info = v;
+            current = current->next;
+        }
+    }
+
+    // для равных элементы
+    for (int v : equal) {
+        if (current) {
+            current->info = v;
+            current = current->next;
+        }
+    }
+
+    //вставка больших элементов
+    for (int v : greater) {
+        if (current) {
+            current->info = v;
+            current = current->next;
+        }
+    }
+
+    cout << "Результат (среднее = " << avg << "):\n  ";
+    print_list(head);
+    cout << "\n--------------------------------------------------\n\n";
+
+}
+	//vector <long int> values = { 2,54,51,1,56,21,45,8,63,20,4 };
