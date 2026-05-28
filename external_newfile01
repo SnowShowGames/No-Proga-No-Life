@@ -1,0 +1,171 @@
+#include <iostream>
+#include <clocale>
+#include <cmath>
+
+using namespace std;
+
+struct List
+{
+	int data;
+	List* next;
+};
+
+struct List1
+{
+	int data;
+	List1* next;
+};
+
+//создание нового узла, элемента списка для 1 списка
+List* createList(int val)
+{
+	List* newList = new List;
+	newList->data=val;
+	newList->next = NULL;
+	return newList;
+}
+//создание нового узла, элемента списка для 2 списка
+List1* createList1(int val)
+{
+	List1* newList = new List1;
+	newList->data = val;
+	newList->data = NULL;
+	return newList;
+}
+
+//1
+void appEnd(List*& head, int val)
+{
+	List* newList = createList(val);
+	if (head == nullptr)
+	{
+		head = newList;
+	}
+	else {
+		List* tmp = head;
+		while (tmp->next!=nullptr)
+		{
+			tmp = tmp->next;
+		}
+		tmp->next = newList;
+	}
+}
+
+//2
+void appEnd1(List1*& head, int val)
+{
+	List1* newList1 = createList1(val);
+	if (head == nullptr)
+	{
+		head == newList1;
+	}
+	else {
+		List1* tmp = head;
+		while (tmp->next != nullptr)
+		{
+			tmp = tmp->next;
+		}
+		tmp->next = newList1;
+	}
+}
+
+void printList(List* head)
+{
+	List* tmp = head;
+	while (tmp != nullptr)
+	{
+		cout << tmp->data << " ";
+		tmp = tmp->next;
+	}
+}
+
+void PrintList1(List1* head)
+{
+	List1* tmp = head;
+	while (tmp != nullptr)
+	{
+		cout << tmp->data << " ";
+		tmp = tmp->next;
+	}
+}
+
+//a) переносит в начало непустого списка List его последний элемент.
+void lastToFront(List*& head)
+{
+	List* prev = nullptr;
+	List* last = head;
+	while (last->next!=nullptr)
+	{
+		prev = last;
+		last=last->next;
+	}
+	prev->next = nullptr;
+	last->next = head;
+	head = last;
+}
+
+//б) Вставляет в список List за первым вхождением элемента E 
+//все элементы списка List1, если E входит в List.
+//Если E не входит в List - список не меняется.
+//Список List1 остаётся неизменным(создаются копии элементов).
+void insertToFirstE(List*& head, int E, List1* L1)
+{
+	List1* tmp1 = L1;
+	List* tmp = head;
+	List* last = tmp;
+	List* aftrE = tmp->next; //запоминает конец списка
+	while (tmp != nullptr)
+	{
+		tmp = tmp->next;
+	}
+	while (tmp1 != nullptr)
+	{
+		List* newList = createList(tmp1->data);
+		last->next = newList;
+		last = newList;
+		tmp1 = tmp1->next;
+	}
+	last->next = aftrE;	
+}
+
+int main()
+{
+	//задание а
+	setlocale(LC_ALL, "Rus");
+	int x;
+	List* L = nullptr;
+	int n;
+	cout << "Ввод размера списка" << endl;
+	cin >> n;
+	cout << "Ввод элементов массива" << endl;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> x;
+		appEnd(L,x);
+	}
+	cout << "Список до изменений ";
+	printList(L);
+	lastToFront(L);
+	cout << endl;
+
+	//задание б
+	List1* L1 = nullptr;
+	int y, g;
+	int E;
+	cout << "Ввод размера списка" << endl;
+	cin >> g;
+	cout << "Ввод элементов массива" << endl;
+	for (int i = 0; i < g; i++)
+	{
+		cin >> x;
+		appEnd1(L1, x);
+	}
+	cout << "Список до изменений " << endl;
+	PrintList1(L1);
+	cout << "Ввод E";
+	cin >> E;
+	cout << "|||";
+	insertToFirstE(L,E,L1);
+	cout << "Итог L: ";
+	printList(L);
+}
