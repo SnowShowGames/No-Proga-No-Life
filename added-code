@@ -1,0 +1,68 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    string filename_f, filename_g;
+    
+    cout << "Введите имя первого файла (f): ";
+    cin >> filename_f;
+    cout << "Введите имя второго файла (g): ";
+    cin >> filename_g;
+    
+    ifstream file_f(filename_f);
+    ifstream file_g(filename_g);
+    
+    if (!file_f.is_open()) {
+        cerr << "Ошибка открытия файла " << filename_f << endl;
+        return 1;
+    }
+    
+    if (!file_g.is_open()) {
+        cerr << "Ошибка открытия файла " << filename_g << endl;
+        return 1;
+    }
+    
+    string line_f, line_g;
+    int line_num = 1;
+    bool files_equal = true;
+    
+    // Сравниваем файлы построчно
+    while (getline(file_f, line_f) && getline(file_g, line_g)) {
+        if (line_f != line_g) {
+            // Находим позицию первого несовпадающего символа
+            int min_length = min(line_f.length(), line_g.length());
+            int pos = 0;
+            
+            while (pos < min_length && line_f[pos] == line_g[pos]) {
+                pos++;
+            }
+            
+            files_equal = false;
+            cout << "Файлы отличаются в строке " << line_num 
+                 << ", позиция " << pos + 1 << endl;
+            break;
+        }
+        line_num++;
+    }
+    
+    // Если все строки совпали, но файлы разной длины
+    if (files_equal) {
+        if (file_f.peek() != EOF || file_g.peek() != EOF) {
+            files_equal = false;
+            cout << "Файлы отличаются в строке " << line_num 
+                 << ", позиция 1" << endl;
+        }
+    }
+    
+    if (files_equal) {
+        cout << "Файлы полностью совпадают" << endl;
+    }
+    
+    file_f.close();
+    file_g.close();
+    
+    return 0;
+}
