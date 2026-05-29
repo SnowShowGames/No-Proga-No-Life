@@ -1,0 +1,67 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    string file_f, file_g, result_file;
+
+    cout << "Введите имя первого файла (f): ";
+    cin >> file_f;
+    cout << "Введите имя второго файла (g): ";
+    cin >> file_g;
+    cout << "Введите имя файла для результата: ";
+    cin >> result_file;
+
+    ifstream f1(file_f);
+    ifstream f2(file_g);
+    ofstream result(result_file);
+
+    char sym1, sym2;
+    int lnum = 1;
+    int ps = 1;
+    bool file_ok = true;
+
+    //сравнение посимвольно
+    while (f1.get(sym1) && f2.get(sym2)) {
+        if (sym1 != sym2) {
+            file_ok = false;
+            break;
+        }
+
+        if (sym1 == '\n') {
+            lnum++;
+            ps = 1;
+        }
+        else {
+            ps++;
+        }
+    }
+
+    //проверка
+    if (file_ok) {
+        char dummy;
+        if (f1.get(dummy) || f2.get(dummy)) {
+            file_ok = false;
+        }
+    }
+
+    //запись результата в файл
+    if (!file_ok) {
+        result << "Файлы отличаются в строке " << lnum
+            << ", позиция " << ps << endl;
+        cout << "Файлы отличаются в строке " << lnum
+            << ", позиция " << ps << endl;
+    }
+    else {
+        result << "Файлы совпадают" << endl;
+        cout << "Файлы совпадают" << endl;
+    }
+
+    f1.close();
+    f2.close();
+    result.close();
+
+    return 0;
+}
