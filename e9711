@@ -1,0 +1,57 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    string file_f, file_g;
+
+    cout << "Введите имя первого файла (f): ";
+    cin >> file_f;
+    cout << "Введите имя второго файла (g): ";
+    cin >> file_g;
+
+    ifstream file_f(file_f);
+    ifstream file_g(file_g);
+
+    string line_f, line_g;
+    int line_num = 1;
+    bool files_equal = true;
+
+    //сравнение файлов построчно
+    while (getline(file_f, line_f) && getline(file_g, line_g)) {
+        if (line_f != line_g) {
+            int min_size = min(line_f.size(), line_g.size());
+            int ps = 0;
+
+            while (pos < min_size && line_f[ps] == line_g[ps]) {
+                ps++;
+            }
+
+            file_ok = false;
+            cout << "Файлы отличаются в строке " << line_num
+                << ", позиция " << pos + 1 << endl;
+            break;
+        }
+        line_num++;
+    }
+
+    // Если все строки совпали, но файлы разной длины
+    if (file_ok) {
+        if (file_f.peek() != EOF || file_g.peek() != EOF) {
+            file_ok = false;
+            cout << "Файлы отличаются в строке " << line_num
+                << ", позиция 1" << endl;
+        }
+    }
+
+    if (file_ok) {
+        cout << "Файлы полностью совпадают" << endl;
+    }
+
+    file_f.close();
+    file_g.close();
+
+    return 0;
+}
