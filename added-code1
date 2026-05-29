@@ -1,0 +1,73 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+int main() {
+    string file_f, file_g, result_file;
+    
+    cout << "Введите имя первого файла (f): ";
+    cin >> file_f;
+    cout << "Введите имя второго файла (g): ";
+    cin >> file_g;
+    cout << "Введите имя файла для результата: ";
+    cin >> result_file;
+    
+    ifstream f1(file_f);
+    ifstream f2(file_g);
+    ofstream result(result_file);
+    
+    if (!f1.is_open() || !f2.is_open() || !result.is_open()) {
+        cerr << "Ошибка открытия файлов" << endl;
+        return 1;
+    }
+    
+    char ch1, ch2;
+    int line_num = 1;
+    int pos = 1;
+    bool files_equal = true;
+    
+    // Посимвольное сравнение
+    while (f1.get(ch1) && f2.get(ch2)) {
+        if (ch1 != ch2) {
+            files_equal = false;
+            break;
+        }
+        
+        if (ch1 == '\n') {
+            line_num++;
+            pos = 1;
+        } else {
+            pos++;
+        }
+    }
+    
+    // Проверка, не осталось ли символов в одном из файлов
+    if (files_equal) {
+        char dummy;
+        if (f1.get(dummy) || f2.get(dummy)) {
+            files_equal = false;
+            // Если достигли конца при сравнении, но символы ещё есть
+            if (f1.eof() && !f2.eof()) {
+                // Уже на новой строке
+            }
+        }
+    }
+    
+    // Запись результата в файл
+    if (!files_equal) {
+        result << "Файлы отличаются в строке " << line_num
+               << ", позиция " << pos << endl;
+        cout << "Файлы отличаются в строке " << line_num
+             << ", позиция " << pos << endl;
+    } else {
+        result << "Файлы полностью совпадают" << endl;
+        cout << "Файлы полностью совпадают" << endl;
+    }
+    
+    f1.close();
+    f2.close();
+    result.close();
+    
+    return 0;
+}
