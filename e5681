@@ -1,0 +1,89 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int sumOfDivisors(int n) {
+    if (n <= 1) return 0;
+
+    int sum = 1;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) {
+            sum += i;
+            if (i != n / i) {
+                sum += n / i;
+            }
+        }
+    }
+    return sum;
+}
+
+//равны ли a и b,делители
+bool areFriendly(int a, int b) {
+    if (a == b) return false;
+    return (sumOfDivisors(a) == b && sumOfDivisors(b) == a);
+}
+
+void MoveToFront(vector<int>& arr) {
+    int n = arr.size();
+    int firstInd = -1, secondInd = -1;
+
+    for (int i = 0; i < n && firstInd == -1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (areFriendly(arr[i], arr[j])) {
+                firstInd = i;
+                secondInd = j;
+                break;
+            }
+        }
+    }
+
+    if (firstInd == -1) return;
+
+    int val1 = arr[firstInd];
+    int val2 = arr[secondInd];
+
+    // Сдвигаем элементы, чтобы освободить место в начале
+    // Удаляем элементы с индексов firstIndex и secondIndex
+    // и сдвигаем остальные влево
+
+    vector<int> rmng;
+    for (int i = 0; i < n; i++) {
+        if (i != firstInd && i != secondInd) {
+            rmng.push_back(arr[i]);
+        }
+    }
+
+    arr.clear();
+    arr.push_back(val1);
+    arr.push_back(val2);
+    for (int i = 0; i < rmng.size(); i++) {
+        arr.push_back(rmng[i]);
+    }
+}
+
+void printArray(const vector<int>& arr) {
+    for (int i = 0; i < arr.size(); i++) {
+        cout << arr[i] << " ";
+    }
+    cout << std::endl;
+}
+
+int main() {
+    vector<int> arr;
+    arr.push_back(10);
+    arr.push_back(284);
+    arr.push_back(15);
+    arr.push_back(220);
+    arr.push_back(30);
+    arr.push_back(50);
+
+    cout << "Исходный массив: ";
+    printArray(arr);
+
+    moveFriendlyPairToFrontInPlace(arr);
+    cout << "После перемещения: ";
+    printArray(arr);
+
+    return 0;
+}
