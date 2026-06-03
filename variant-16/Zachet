@@ -1,0 +1,441 @@
+﻿#include <iostream>
+#include <clocale>
+#include <cmath>
+#include <vector>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+//==================== ЗАДАЧА 1 ====================
+struct List {
+    int data;
+    List* next;
+};
+
+struct List1 {
+    int data;
+    List1* next;
+};
+
+List* createList(int val) {
+    List* newList = new List;
+    newList->data = val;
+    newList->next = NULL;
+    return newList;
+}
+
+List1* createList1(int val) {
+    List1* newList = new List1;
+    newList->data = val;
+    newList->next = NULL;
+    return newList;
+}
+
+void appEnd(List*& head, int val) {
+    List* newList = createList(val);
+    if (head == nullptr) {
+        head = newList;
+    }
+    else {
+        List* tmp = head;
+        while (tmp->next != nullptr) {
+            tmp = tmp->next;
+        }
+        tmp->next = newList;
+    }
+}
+
+void appEnd1(List1*& head, int val) {
+    List1* newList1 = createList1(val);
+    if (head == nullptr) {
+        head = newList1;
+    }
+    else {
+        List1* tmp = head;
+        while (tmp->next != nullptr) {
+            tmp = tmp->next;
+        }
+        tmp->next = newList1;
+    }
+}
+
+void printList(List* head) {
+    List* tmp = head;
+    while (tmp != nullptr) {
+        cout << tmp->data << " ";
+        tmp = tmp->next;
+    }
+}
+
+void printList1(List1* head) {
+    List1* tmp = head;
+    while (tmp != nullptr) {
+        cout << tmp->data << " ";
+        tmp = tmp->next;
+    }
+}
+
+void lastToFront(List*& head) {
+    if (head == nullptr || head->next == nullptr) return;
+    List* prev = nullptr;
+    List* last = head;
+    while (last->next != nullptr) {
+        prev = last;
+        last = last->next;
+    }
+    prev->next = nullptr;
+    last->next = head;
+    head = last;
+}
+
+void insertToFirstE(List*& head, int E, List1* L1) {
+    if (head == nullptr || L1 == nullptr) return;
+
+    List* tmp = head;
+    List* target = nullptr;
+    while (tmp != nullptr) {
+        if (tmp->data == E) {
+            target = tmp;
+            break;
+        }
+        tmp = tmp->next;
+    }
+
+    if (target == nullptr) return;
+
+    List* afterE = target->next;
+    List1* tmp1 = L1;
+    List* last = target;
+
+    while (tmp1 != nullptr) {
+        List* newList = createList(tmp1->data);
+        last->next = newList;
+        last = newList;
+        tmp1 = tmp1->next;
+    }
+    last->next = afterE;
+}
+
+void deleteList(List* head) {
+    while (head) {
+        List* tmp = head;
+        head = head->next;
+        delete tmp;
+    }
+}
+
+void deleteList1(List1* head) {
+    while (head) {
+        List1* tmp = head;
+        head = head->next;
+        delete tmp;
+    }
+}
+
+void task1() {
+    cout << "\n========== ЗАДАЧА 1 ==========\n";
+    cout << "а) Перенос последнего элемента в начало\n";
+    cout << "б) Вставка списка L1 за первым вхождением E\n\n";
+
+    List* L = nullptr;
+    List1* L1 = nullptr;
+
+    vector<int> arrL = { 10, 20, 30, 40, 50 };
+    vector<int> arrL1 = { 100, 200, 300 };
+
+    for (int v : arrL) appEnd(L, v);
+    for (int v : arrL1) appEnd1(L1, v);
+
+    cout << "Исходный список L: ";
+    printList(L);
+    cout << "\nИсходный список L1: ";
+    printList1(L1);
+
+    lastToFront(L);
+    cout << "\n\nа) После переноса последнего в начало L: ";
+    printList(L);
+
+    int E = 30;
+    cout << "\n\nб) Вставка L1 за первым вхождением E=" << E;
+    insertToFirstE(L, E, L1);
+    cout << "\nРезультат L: ";
+    printList(L);
+    cout << "\n";
+
+    deleteList(L);
+    deleteList1(L1);
+}
+
+//==================== ЗАДАЧА 2 ====================
+void task2() {
+    cout << "\n========== ЗАДАЧА 2 ==========\n";
+    cout << "Напечатать в обратном порядке все числа между наибольшим и наименьшим\n\n";
+
+    vector<int> seq = { 15, 3, 8, 22, 5, 11, 7, 19, 4, 0 };
+    cout << "Последовательность (0 - конец): ";
+    for (int v : seq) cout << v << " ";
+    cout << "\n";
+
+    if (seq.size() < 2) {
+        cout << "Недостаточно элементов\n";
+        return;
+    }
+
+    int maxVal = seq[0], minVal = seq[0];
+    for (int i = 0; i < seq.size(); i++) {
+        if (seq[i] == 0) break;
+        if (seq[i] > maxVal) maxVal = seq[i];
+        if (seq[i] < minVal) minVal = seq[i];
+    }
+
+    cout << "Наибольшее: " << maxVal << ", Наименьшее: " << minVal << "\n";
+    cout << "Числа между ними в обратном порядке: ";
+
+    for (int i = seq.size() - 2; i >= 0; i--) {
+        if (seq[i] == 0) continue;
+        if (seq[i] > minVal && seq[i] < maxVal) {
+            cout << seq[i] << " ";
+        }
+    }
+    cout << "\n";
+}
+
+//==================== ЗАДАЧА 3 ====================
+struct Tree {
+    int data;
+    Tree* left;
+    Tree* right;
+};
+
+Tree* createTree(int val) {
+    Tree* newTree = new Tree;
+    newTree->data = val;
+    newTree->left = nullptr;
+    newTree->right = nullptr;
+    return newTree;
+}
+
+Tree* insertTree(Tree* root, int val) {
+    if (root == nullptr) return createTree(val);
+    if (val < root->data) root->left = insertTree(root->left, val);
+    else if (val > root->data) root->right = insertTree(root->right, val);
+    return root;
+}
+
+void traverseAndInsert(Tree* root2, Tree*& root1) {
+    if (root2 == nullptr) return;
+    traverseAndInsert(root2->left, root1);
+    root1 = insertTree(root1, root2->data);
+    traverseAndInsert(root2->right, root1);
+}
+
+Tree* combineTrees(Tree* root1, Tree* root2) {
+    traverseAndInsert(root2, root1);
+    return root1;
+}
+
+void printTree(Tree* root) {
+    if (root == nullptr) return;
+    printTree(root->left);
+    cout << root->data << " ";
+    printTree(root->right);
+}
+
+void deleteTree(Tree* root) {
+    if (root == nullptr) return;
+    deleteTree(root->left);
+    deleteTree(root->right);
+    delete root;
+}
+
+void task3() {
+    cout << "\n========== ЗАДАЧА 3 ==========\n";
+    cout << "Объединить два дерева двоичного поиска\n\n";
+
+    vector<int> vals1 = { 8, 3, 10, 1, 6, 14, 4, 7, 13 };
+    vector<int> vals2 = { 15, 5, 12, 9, 20, 2, 11 };
+
+    Tree* root1 = nullptr;
+    Tree* root2 = nullptr;
+
+    for (int v : vals1) root1 = insertTree(root1, v);
+    for (int v : vals2) root2 = insertTree(root2, v);
+
+    cout << "Первое дерево: ";
+    printTree(root1);
+    cout << "\nВторое дерево: ";
+    printTree(root2);
+
+    root1 = combineTrees(root1, root2);
+    cout << "\nОбъединённое дерево: ";
+    printTree(root1);
+    cout << "\n";
+
+    deleteTree(root1);
+    deleteTree(root2);
+}
+
+//==================== ЗАДАЧА 4 ====================
+void task4() {
+    cout << "\n========== ЗАДАЧА 4 ==========\n";
+    cout << "Сравнить два текстовых файла\n\n";
+
+    const char* fname = "f.txt";
+    const char* gname = "g.txt";
+
+    //тестовые файлы
+    ofstream fout(fname);
+    fout << "Hello world!\n";
+    fout << "This is line 2\n";
+    fout << "Line number 3";
+    fout.close();
+
+    ofstream gout(gname);
+    gout << "Hello world!\n";
+    gout << "This is line 2\n";
+    gout << "Line number 4";
+    gout.close();
+
+    ifstream f1(fname);
+    ifstream f2(gname);
+
+    char sym1, sym2;
+    int lineNum = 1;
+    int pos = 1;
+    bool identical = true;
+
+    while (f1.get(sym1) && f2.get(sym2)) {
+        if (sym1 != sym2) {
+            identical = false;
+            break;
+        }
+        if (sym1 == '\n') {
+            lineNum++;
+            pos = 1;
+        }
+        else {
+            pos++;
+        }
+    }
+
+    if (identical) {
+        char dummy;
+        if (f1.get(dummy) || f2.get(dummy)) {
+            identical = false;
+        }
+    }
+
+    if (!identical) {
+        cout << "Файлы отличаются в строке " << lineNum << ", позиция " << pos << "\n";
+    }
+    else {
+        cout << "Файлы совпадают\n";
+    }
+
+    f1.close();
+    f2.close();
+}
+
+//==================== ЗАДАЧА 5 ====================
+int sumOfDivisors(int n) {
+    if (n <= 1) return 0;
+    int sum = 1;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) {
+            sum += i;
+            if (i != n / i) sum += n / i;
+        }
+    }
+    return sum;
+}
+
+bool areFriendly(int a, int b) {
+    if (a == b) return false;
+    return (sumOfDivisors(a) == b && sumOfDivisors(b) == a);
+}
+
+void moveFriendlyToFront(vector<int>& arr) {
+    if (arr.size() < 2) return;
+
+    int firstIdx = -1, secondIdx = -1;
+
+    for (size_t i = 0; i < arr.size(); i++) {
+        for (size_t j = i + 1; j < arr.size(); j++) {
+            if (areFriendly(arr[i], arr[j])) {
+                firstIdx = i;
+                secondIdx = j;
+                break;
+            }
+        }
+        if (firstIdx != -1) break;
+    }
+
+    if (firstIdx == -1) return;
+
+    int val1 = arr[firstIdx];
+    int val2 = arr[secondIdx];
+
+    vector<int> remaining;
+    for (size_t i = 0; i < arr.size(); i++) {
+        if (i != firstIdx && i != secondIdx) {
+            remaining.push_back(arr[i]);
+        }
+    }
+
+    arr.clear();
+    arr.push_back(val1);
+    arr.push_back(val2);
+    for (size_t i = 0; i < remaining.size(); i++) {
+        arr.push_back(remaining[i]);
+    }
+}
+
+void task5() {
+    cout << "\n========== ЗАДАЧА 5 ==========\n";
+    cout << "Переставить дружественные числа в начало массива\n\n";
+
+    vector<int> arr = { 220, 100, 284, 6, 1184, 65, 1210, 4 };
+
+    cout << "Исходный массив: ";
+    for (int v : arr) cout << v << " ";
+    cout << "\n";
+
+    cout << "Дружественные пары: (220,284) и (1184,1210)\n";
+
+    moveFriendlyToFront(arr);
+
+    cout << "После перемещения: ";
+    for (int v : arr) cout << v << " ";
+    cout << "\n";
+}
+
+//==================== ГЛАВНОЕ МЕНЮ ====================
+int main() {
+    setlocale(LC_ALL, "Russian");
+
+    while (true) {
+        cout << "\n========================================\n";
+        cout << "СПИСОК ЗАДАЧ:\n";
+        cout << "1 - Перенос последнего элемента и вставка списка\n";
+        cout << "2 - Числа между max и min в обратном порядке\n";
+        cout << "3 - Объединение двух деревьев поиска\n";
+        cout << "4 - Сравнение двух текстовых файлов\n";
+        cout << "5 - Дружественные числа в начало массива\n";
+        cout << "========================================\n";
+        cout << "Ваш выбор: ";
+
+        int choice;
+        cin >> choice;
+
+        switch (choice) {
+        case 1: task1(); break;
+        case 2: task2(); break;
+        case 3: task3(); break;
+        case 4: task4(); break;
+        case 5: task5(); break;
+        }
+    }
+
+    return 0;
+}
