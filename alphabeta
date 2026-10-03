@@ -1,0 +1,334 @@
+amounts = [4, 1, 5, 3, 2]
+
+row = [4 1 5 3 2]
+
+pizzas = [4 15.0;
+          1 11.5;
+          5 13.0;
+          3 12.75;
+          2 14.25]
+
+pizzas = [4 15.0; 1 11.5; 5 13.0; 3 12.75; 2 14.25]
+
+no_pizzas_sold = sum(amounts)
+
+length(amounts)
+
+avg = sum(amounts) / length(amounts)
+
+prices = [15.0, 11.5, 13.0, 12.75, 14.25]
+
+sorted = sort(prices)
+
+prices
+
+sort!(prices)
+
+prices
+
+prices = [15.0, 11.5, 13.0, 12.75, 14.25];
+
+prices_with_tax = prices * 1.25
+
+amounts * prices
+
+amounts .* prices
+
+sum(amounts .* prices)
+
+average(A) = sum(A) / length(A)
+
+using Statistics
+
+help?> Statistics
+
+help?> middle(3, 4)
+
+Statistics.
+
+mean(amounts)
+
+mean(prices)
+
+median(amounts)
+
+median(prices)
+
+std(amounts)
+
+std([3, 3, 3])
+
+amounts = [4, 1, 5, 3, 2]
+
+amounts[1]
+
+amounts[2]
+
+amounts[5]
+
+xs = [2, 3]
+
+xs[1] = 42
+
+xs
+
+xs[2] = 12
+
+xs
+
+xs[3] = 5
+
+xs[0]
+
+amounts[1]
+
+amounts[begin]
+
+amounts[5]
+
+amounts[end]
+
+amounts[4]
+
+amounts[end-1]
+
+xs = zeros(50)
+
+length(xs)
+
+ones(5)
+
+fill(42, 6)
+
+rand(3)
+
+ones(Int8, 5)
+
+zeros(UInt8, 4)
+
+rand(Int8, 3)
+
+xs = Int8[72, 69, 76, 76, 79]
+
+eltype(xs)
+
+eltype([3, 4, 5])
+
+eltype([true, false])
+
+function print_sin_table(increment, max_angle)
+    angle = 0
+    while angle <= max_angle
+        rad = deg2rad(angle)
+        x = sin(rad)
+        println(x)
+        angle = angle + increment
+    end
+end
+
+degs = [0, 15, 30, 45, 60];
+
+rads = map(deg2rad, degs)
+
+ys = map(f, xs)
+
+map(deg2rad, 0:15:90)
+
+map(sin, map(deg2rad, 0:15:90))
+
+result = zeros(Float64, length(0:15:90))
+map!(deg2rad, result, 0:15:90)
+map!(sin, result, result)
+
+degsin(deg) = sin(deg2rad(deg))
+map(degsin, 0:15:90)
+
+function degsin(deg)
+    sin(deg2rad(deg))
+end
+
+map(degsin, 0:15:90)
+
+function transform(fun, xs)
+    ys = []
+    for x in xs
+        push!(ys, fun(x))
+    end
+    ys
+end
+
+sin(1.0)
+
+g = sin
+
+g(1.0)
+
+add = +
+
+add(2, 3)
+
+push!(xs, x)
+
+ys = []
+
+push!(ys, 3)
+
+push!(ys, 8)
+
+push!(ys, 2)
+
+x = Int8(65)
+
+ch = Char(65)
+
+ch = Char(66)
+
+'A'
+
+Int8('A')
+
+'A' + 'B'
+
+'A' + 3
+
+chars = ['H', 'E', 'L', 'L', 'O']
+
+join(chars)
+
+join('A':'G')
+
+join('A':2:'G')
+
+collect("HELLO")
+
+collect(2:5)
+
+collect('B':'D')
+
+pizza_tuple = ("hawaiian", 'S', 10.5)
+
+'hawaiian'
+
+pizza_array = ["hawaiian", 'S', 10.5]
+
+pizza = ["hawaiian", 'S', 10.5]
+
+eltype(pizza)
+
+xs = [4, 5, 3]
+
+xs[1] = "hi"
+
+pizza[3] = true
+
+pizza[1] = 42
+
+pizza
+
+pza = ("hawaiian", 'S', 10.5)
+
+typeof(pza)
+
+pza[1]
+
+pza[1] = "pepperoni"
+
+for item in pza
+    println(item)
+end
+
+nums = (3, 4, 1)
+
+sum(nums)
+
+median(nums)
+
+sales = [
+    ("hawaiian", 'S', 10.5),
+    ("sicilian", 'S', 12.25),
+    ("hawaiian", 'L', 16.5),
+    ("bbq chicken", 'L', 20.75),
+    ("bbq chicken", 'M', 16.75)
+]
+
+name(pizza)    = pizza[1]
+portion(pizza) = pizza[2]
+price(pizza)   = pizza[3]
+
+function price(pizza)
+    pizza[3]
+end
+
+map(name, sales)
+
+ys = filter(p, xs)
+
+iseven(3)
+
+iseven(2)
+
+isodd(3)
+
+isodd(4)
+
+isuppercase('A')
+
+isuppercase('a')
+
+isspace(' ')
+
+isspace('X')
+
+filter(iseven, 1:10)
+
+issmall(pizza)  = portion(pizza) == 'S'
+islarge(pizza)  = portion(pizza) == 'L'
+isbbq(pizza)    = name(pizza) == "bbq chicken"
+
+filter(islarge, sales)
+
+map(price, filter(islarge, sales))
+
+sum(map(price, filter(islarge, sales)))
+
+bbq_sales = filter(isbbq, sales)
+
+sum(map(price, bbq_sales))
+
+mapreduce(price, +, bbq_sales)
+
+mapcompress(f, g, xs) = reduce(g, map(f, xs))
+
+g(x, y) = ...
+y = reduce(g, xs)
+
+sum(2:4)
+
+reduce(+, 2:4)
+
+factorial(4)
+
+reduce(*, 1:4)
+
+function sine(x)
+    n = 5
+    total = 0
+    for i in 0:n
+        total += (-1)^i*x^(2i+1)/factorial(2i + 1)
+    end
+    total
+end
+
+function sinus(x)
+    n = 5
+    taylor(i) = (-1)^i*x^(2i+1)/factorial(2i + 1)
+    mapreduce(taylor, +, 0:n)
+end
+
+matches = map(islarge, sales)
+
+sum(matches)
+
+sum(islarge, sales)
+
+sum(isbbq, sales)
